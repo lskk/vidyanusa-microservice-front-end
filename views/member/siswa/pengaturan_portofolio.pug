@@ -1,0 +1,283 @@
+extends templates/template1
+
+block navigasi
+  a(class='item primary-color',href='/')
+    .text.grey-text
+      | Dashboard
+  a(class='item primary-color',href='/member/siswa/kegiatanku')
+    .text.grey-text
+      | Kegiatanku
+  a(class='item primary-color',href='/member/siswa/absensi')
+    .text.grey-text
+      | Absensi
+
+
+  .right.menu
+    a(class='item grey-text',href='#')
+      i.alarm.outline.icon.medium.grey-text
+    a.item.ui.dropdown
+      .text.grey-text
+        | #{username}
+      i.dropdown.icon
+      .menu
+        .item.nav-pengaturan
+          i.setting.icon.grey-text
+          span.grey-text Pengaturan
+        .item.nav-keluar
+          i.sign.out.icon.grey-text
+          span.grey-text Keluar
+
+block main-middle
+  if (messages.pesan)
+    .ui.segment.grey-text
+      .ui.red.message
+        span= messages.pesan
+  .ui.segment.grey-text(align='center') Portofolio
+
+  .ui.segment.grey-text
+    i.icon.trophy
+    |  Prestasi
+    br
+    br
+    span(ng-controller='controllerGetProfilePrestasi')
+      .ui.ignored.info.message(ng-repeat='prestasi in paraPrestasi')
+        | {{prestasi}}
+      a#tambah-prestasi(href='#',class='ui button button-submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;')
+        i.plus.icon
+        | Tambah prestasi
+
+  .ui.segment.grey-text
+    i.icon.book
+    |  Pengalaman organisasi
+    br
+    br
+    span(ng-controller='controllerGetProfilePengalamanOrganisasi')
+      .ui.ignored.info.message(ng-repeat='pengalamanOrganisasi in paraPengalamanOrganisasi')
+        | {{pengalamanOrganisasi}}
+      a#tambah-organisasi(href='#',class='ui button button-submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;')
+        i.plus.icon
+        | Tambah pengalaman organisasi
+
+  .ui.segment.grey-text
+    i.icon.smile
+    |  Minat bakat
+    br
+    br
+    span(ng-controller='controllerGetProfileMinatBakat')
+      .ui.ignored.info.message(ng-repeat='minatBakat in paraMinatBakat')
+        | {{minatBakat}}
+      a#tambah-minat-bakat(href='#',class='ui button button-submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;')
+        i.plus.icon
+        | Tambah minat bakat
+
+  .ui.segment.grey-text
+    i.icon.file
+    |  Sertifikat
+    br
+    br
+    span(ng-controller='controllerGetProfileSertifikat')
+      .ui.ignored.info.message(ng-repeat='sertifikat in paraSertifikat')
+        | {{sertifikat}}
+      a#tambah-sertifikat(href='#',class='ui button button-submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;')
+        i.plus.icon
+        | Tambah sertifikat
+
+  .ui.segment.grey-text
+    i.icon.magic
+    |  Hobi
+    br
+    br
+    span(ng-controller='controllerGetProfileHobi')
+      .ui.ignored.info.message(ng-repeat='hobi in paraHobi')
+        | {{hobi}}
+      a#tambah-hobi(href='#',class='ui button button-submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;')
+        i.plus.icon
+        | Tambah hobi
+
+  .ui.segment.grey-text
+    i.icon.facebook.sign
+    |  Media sosial (fb, instagram, twitter)
+    br
+    br
+    span(ng-controller='controllerGetProfileMedsos')
+      form(class='ui form',method='post',action='/member/siswa/pengaturan/medsos/ubah')
+        div(class='required field')
+          input(type='text',placeholder='Tulis nama akun Facebook disini',name='facebook',value='{{facebook}}')
+        div(class='required field')
+          input(type='text',placeholder='Tulis nama akun Instagram disini',name='instagram',value='{{instagram}}')
+        div(class='required field')
+          input(type='text',placeholder='Tulis nama akun Twitter disini',name='twitter',value='{{twitter}}')
+        br
+        button(type='submit',class='ui button button-submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;')
+          | Ubah data media sosial
+
+  .ui.segment.grey-text
+    i.icon.empty.flag
+    |  Bahasa yang dikuasai
+    br
+    br
+    span(ng-controller='controllerGetProfileBahasa')
+      .ui.ignored.info.message(ng-repeat='bahasa in paraBahasa')
+        | {{bahasa}}
+      a#tambah-bahasa(href='#',class='ui button button-submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;')
+        i.plus.icon
+        | Tambah bahasa
+
+  .ui.segment.grey-text
+    i.icon.pencil
+    |  Karya yang pernah dibuat
+    br
+    br
+    span(ng-controller='controllerGetProfileKarya')
+      .ui.ignored.info.message(ng-repeat='karya in paraKarya')
+        | {{karya}}
+      a#tambah-karya(href='#',class='ui button button-submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;')
+        i.plus.icon
+        | Tambah karya
+
+
+
+
+
+block right-middle
+  .ui.card
+    #hidden-username(style='display:none') #{username}
+    #hidden-access-token(style='display:none') #{access_token}
+    #hidden-user-id(style='display:none') #{user_id}
+    .image
+      img(src='{{foto}}')
+    .content
+      a.header {{username}}
+      .meta
+        span.date {{nama_lengkap}}
+      .description
+        | {{bio}}
+
+    .extra.content
+      a(href='/member/siswa/pengaturan')
+        i.id.setting.icon
+        | Pengaturan dasar
+
+    .extra.content
+      a(href='/member/siswa/pengaturan/portofolio')
+        i.id.list.icon
+        | Portofolio
+
+    .extra.content
+      a#ganti-foto-profil(href='#')
+        i.id.badge.icon
+        | Ubah foto profil
+
+
+
+block modal
+  .ui.modal.modal-ganti-foto-profil
+    i.close.icon
+    .header Form Ubah Foto Profil
+    .content
+      form.ui.form(method='post',action='/member/siswa/pengaturan/foto_profil/ubah', enctype='multipart/form-data')
+        .field
+          label Pilih berkas foto(.png/.jpg/.jpeg)
+          input(type='hidden', name='pengguna', value=user_id)
+          input(type='file', name='foto', placeholder='Masukan kode kelas')
+
+        .field
+          button.ui.button(type='submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;') Kirim
+
+  .ui.modal.modal-tambah-prestasi
+    i.close.icon
+    .header Form Tambah Prestasi
+    .content
+      form.ui.form(method='post',action='/member/siswa/pengaturan/prestasi/tambah')
+        .field
+          label Tuliskan prestasi
+          input(type='hidden', name='pengguna', value=user_id)
+          textarea(name='prestasi', placeholder='Tuliskan prestasi disini')
+
+
+        .field
+          button.ui.button(type='submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;') Kirim
+
+  .ui.modal.modal-tambah-organisasi
+    i.close.icon
+    .header Form Tambah Organisasi
+    .content
+      form.ui.form(method='post',action='/member/siswa/pengaturan/pengalaman_organisasi/tambah')
+        .field
+          label Tuliskan pengalaman organisasi
+          input(type='hidden', name='pengguna', value=user_id)
+          textarea(name='pengalaman_organisasi', placeholder='Tuliskan pengalaman organisasi anda disini')
+
+
+        .field
+          button.ui.button(type='submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;') Kirim
+
+  .ui.modal.modal-tambah-minat-bakat
+    i.close.icon
+    .header Form Tambah Minat Bakat
+    .content
+      form.ui.form(method='post',action='/member/siswa/pengaturan/minat_bakat/tambah')
+        .field
+          label Tuliskan minat bakat
+          input(type='hidden', name='pengguna', value=user_id)
+          textarea(name='minat_bakat', placeholder='Tuliskan pengalaman minat bakat anda disini')
+
+
+        .field
+          button.ui.button(type='submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;') Kirim
+
+  .ui.modal.modal-tambah-sertifikat
+    i.close.icon
+    .header Form Tambah Sertifikat
+    .content
+      form.ui.form(method='post',action='/member/siswa/pengaturan/sertifikat/tambah')
+        .field
+          label Tuliskan sertifikat
+          input(type='hidden', name='pengguna', value=user_id)
+          textarea(name='sertifikat', placeholder='Tuliskan sertifikat yang pernah anda dapat disini')
+
+
+        .field
+          button.ui.button(type='submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;') Kirim
+
+  .ui.modal.modal-tambah-hobi
+    i.close.icon
+    .header Form Tambah Hobi
+    .content
+      form.ui.form(method='post',action='/member/siswa/pengaturan/hobi/tambah')
+        .field
+          label Tuliskan hobi
+          input(type='hidden', name='pengguna', value=user_id)
+          textarea(name='hobi', placeholder='Tuliskan hobi anda')
+
+
+        .field
+          button.ui.button(type='submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;') Kirim
+
+  .ui.modal.modal-tambah-bahasa
+    i.close.icon
+    .header Form Tambah Bahasa yang dikuasai
+    .content
+      form.ui.form(method='post',action='/member/siswa/pengaturan/bahasa_yang_dikuasai/tambah')
+        .field
+          label Tuliskan bahasa yang anda kuasai
+          input(type='hidden', name='pengguna', value=user_id)
+          textarea(name='bahasa_yang_dikuasai', placeholder='Tuliskan bahasa yang anda kuasai')
+
+
+        .field
+          button.ui.button(type='submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;') Kirim
+
+  .ui.modal.modal-tambah-karya
+    i.close.icon
+    .header Form Tambah Karya
+    .content
+      form.ui.form(method='post',action='/member/siswa/pengaturan/karya/tambah')
+        .field
+          label Tuliskan karya yang pernah anda buat
+          input(type='hidden', name='pengguna', value=user_id)
+          textarea(name='karya', placeholder='Tuliskan karya yang pernah anda buat')
+
+
+        .field
+          button.ui.button(type='submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;') Kirim

@@ -1,0 +1,108 @@
+extends templates/template1
+
+block navigasi
+  a(class='item primary-color',href='/',style='color:#4183C4;')
+    .text
+      | Dashboard
+  a(class='item primary-color',href='/member/siswa/kegiatanku')
+    .text.grey-text
+      | Kegiatanku
+  a(class='item primary-color',href='/member/siswa/absensi')
+    .text.grey-text
+      | Absensi
+
+
+  .right.menu
+    a(class='item grey-text',href='#')
+      i.alarm.outline.icon.medium.grey-text
+    a.item.ui.dropdown
+      .text.grey-text
+        | #{username}
+      i.dropdown.icon
+      .menu
+        .item.nav-pengaturan
+          i.setting.icon.grey-text
+          span.grey-text Pengaturan
+        .item.nav-keluar
+          i.sign.out.icon.grey-text
+          span.grey-text Keluar
+
+block main-middle
+  if (messages.pesan)
+    .ui.segment.grey-text
+      .ui.red.message
+        span= messages.pesan
+  .ui.segment.grey-text(ng-controller='controllerAllMapel')
+    form.ui.form(method='post',action='/member/siswa/kegiatan', enctype='multipart/form-data')
+      .field
+        label Judul Kegiatan
+        input(type='text', name='judul', placeholder='Tuliskan judul kegiatan')
+      .field(ng-controller='controllerAllKategoriKegiatan')
+        label Kategori
+        select.ui.search.dropdown(name='kategori',id='selectKategori')
+              option(value='') Pilih kategori kegiatan
+              option(ng-repeat='category in categories',value='{{category._id}}') {{category.nama_kategori}}
+      .field
+        label Berkas Foto(.png/.jpg/.jpeg)
+        input(type='file',name='foto')
+      .field
+        button(type='submit',class='medium ui button button-submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;')
+          i.send.icon
+          |Tambah Kegiatan
+      //-
+        select(id='mapel')
+          option(value='-') Pilih mata pelajaran
+          option(ng-repeat='mapel in paraMapel',value='{{mapel._id}}') {{mapel.nama_mapel}}
+        select
+          option(ng-repeat='materi in paraMateri',value='{{materi._id}}') {{materi.nama_materi}}
+  span(ng-controller='controllerGetTimeline')
+    span(ng-repeat='timeline in timelines')
+      .ui.segment.grey-text
+        .ui.grid
+          .two.wide.column
+            a(href='http://portofolio.vidyanusa.id/{{timeline.username}}')
+              img.ui.medium.image(src='{{timeline.foto}}')
+          .four.wide.column(style='margin-left:-1.5em;')
+            a(href='http://portofolio.vidyanusa.id/{{timeline.username}}')
+              b {{timeline.username}}
+            br
+            | {{timeline.created_at}}
+        .ui.grid
+          .sixteen.wide.column
+            | {{timeline.judul}}
+            br
+            span(style='color:red;') # {{timeline.kategori}}
+        .ui.grid
+          .sixteen.wide.column
+            img.ui.large.image(src='{{timeline.file_berkas}}')
+        .ui.grid
+          .two.wide.column
+            i.thumbs.outline.up.icon &nbsp;Suka
+          .two.wide.column
+            i.comment.outline.icon &nbsp;Komentari
+        .ui.grid
+          .two.wide.column 0 suka
+          .fourteen.wide.column 0 komentar
+        .ui.grid
+          .two.wide.column 0 suka
+          .fourteen.wide.column 0 komentar
+      br
+
+block right-middle
+  .ui.card
+    #hidden-username(style='display:none') #{username}
+    #hidden-access-token(style='display:none') #{access_token}
+
+    .image
+      img.ui.medium.image(src='{{foto}}')
+    .content
+      a.header {{username}}
+      .meta
+        span.date {{nama_lengkap}}
+      .description
+        | {{bio}}
+
+    .extra.content
+      a(href='/member/siswa/pengaturan')
+        i.setting.icon
+        | Pengaturan

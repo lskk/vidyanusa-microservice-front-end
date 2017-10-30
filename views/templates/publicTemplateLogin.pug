@@ -1,0 +1,18 @@
+doctype html
+html(lang='en')
+  head
+    title Vidyanusa | #{title}
+    link(rel='shortcut icon', href='/images/shortcut-icon.png')
+    link(rel='stylesheet', href='/dist/semantic.css')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+    script(src='/dist/semantic.min.js')
+  body
+    section(class='ui container')
+      nav(class='ui secondary pointing menu')
+        block navigasi
+      main(class='ui segment',style='padding: 3em 4em 3em 4em;')
+        .ui.grid.stackable
+          block content
+      footer(align='center',class='grey-text')= copyright
+    script.
+      

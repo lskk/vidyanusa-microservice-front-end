@@ -1,0 +1,78 @@
+extends templates/template1
+
+block navigasi
+  a(class='item primary-color',href='/')
+    .text.grey-text
+      | Dashboard
+  a(class='item primary-color',href='/member/guru/kelas')
+    .text(style='color:#4183C4;')
+      | Kelas
+
+
+  .right.menu
+    a(class='item grey-text',href='#')
+      i.alarm.outline.icon.medium.grey-text
+    a.item.ui.dropdown
+      .text.grey-text
+        | #{username}
+      i.dropdown.icon
+      .menu
+        .item.nav-pengaturan
+          i.setting.icon.grey-text
+          span.grey-text Pengaturan
+        .item.nav-keluar
+          i.sign.out.icon.grey-text
+          span.grey-text Keluar
+
+block main-middle
+  if (messages.pesan)
+    .ui.segment.grey-text
+      .ui.red.message
+        span= messages.pesan
+  .ui.segment.grey-text(align='center')
+    | Kelas Anda
+  .ui.segment.grey-text
+    .sixteen.wide.column
+        table.ui.very.basic.collapsing.celled.table(style='width:100%;',ng-controller='controllerGetKelasPunyaGuru')
+          thead
+            tr
+              th Kelas
+              th Mata Pelajaran
+          tbody
+            tr(ng-repeat='kelas in paraKelas')
+              td
+                a(href='/member/guru/kelas/{{kelas.kelas._id}}') {{kelas.kelas.nama_kelas}}
+              td {{kelas.mapel.nama_mapel}}
+
+
+block right-middle
+  .ui.card
+    #hidden-username(style='display:none') #{username}
+    #hidden-access-token(style='display:none') #{access_token}
+    #hidden-access-user-id(style='display:none') #{user_id}
+    .image
+      img(src='{{foto}}')
+    .content
+      a.header {{username}}
+      .meta
+        span.date {{nama_lengkap}}
+      .description
+        | {{bio}}
+
+    .extra.content
+      a(href='/member/guru/pengaturan')
+        i.setting.icon
+        | Pengaturan
+
+block modal
+  .ui.modal.modal-tambah-kelas
+    i.close.icon
+    .header Form Tambah Kelas
+    .content
+      .ui.form
+        .field
+          label Nama Kelas
+          input(type='text', name='nama_kelas', placeholder='Tulis nama kelas')
+
+        .field
+          button.ui.button(type='submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;') Kirim

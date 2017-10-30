@@ -1,0 +1,49 @@
+extends templates/publicTemplateRegistration
+
+block navigasi
+  a(class='item',href='/')
+    img(class='ui small image',src='/images/vidyanusa.png')
+  .right.menu
+    a(class='item grey-text',href='/tentang')
+      aside(class='grey-text') Tentang Vidyanusa
+    a(class='item grey-text',href='/masuk')
+      aside(class='grey-text') Masuk
+    a(class='item grey-text',href='/daftar',style='color:#4183C4;')
+      aside(class='grey-text') Daftar
+
+block content
+  .sixteen.wide.column
+    article.grey-text
+      h3 Mendaftarkan sebagai Guru
+      if (messages.pesan)
+        .ui.red.message
+          i.warning.sign.icon
+          | Terjadi kesalahan
+          br
+          span= messages.pesan
+      form.ui.form(method='post', action='/public/daftar/guru')
+        .field
+          label Email
+          input(type='text', name='email', placeholder='Email anda')
+        .field
+          label Username
+          input(type='text', name='username', placeholder='Buat username')
+        .field
+          label Nama Lengkap
+          input(type='text', name='nama_lengkap', placeholder='Nama lengkap anda')
+        .field
+          label Jenis Kelamin
+          select.ui.dropdown(name='jenis_kelamin')
+            option(value='') Pilih jenis kelamin
+            option(value='M') Laki-laki
+            option(value='F') Perempuan
+        .field
+          label Sandi
+          input(type='password', name='sandi', placeholder='Buat sandi anda')
+        .field(ng-controller='controllerDaftarSekolah')
+          label Sekolah anda mengajar
+          select.ui.dropdown(name='sekolah')
+            option(value='') Pilih sekolah
+            option(ng-repeat='school in schools', value='{{school._id}}')
+              | {{school.nama_sekolah}}
+        button.ui.button(type='submit', style='color: white; background: linear-gradient(141deg, #e74c3c 10%, #c0392b 51%, #c0392b 75%);color:#FFFFFF;') Kirim

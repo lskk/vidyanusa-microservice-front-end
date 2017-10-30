@@ -1,0 +1,81 @@
+extends templates/template1
+
+block navigasi
+  a(class='item primary-color',href='/')
+    .text.grey-text
+      | Dashboard
+  a(class='item primary-color',href='/member/siswa/kegiatanku')
+    .text.grey-text
+      | Kegiatanku
+  a(class='item primary-color',href='/member/siswa/absensi',style='color:#4183C4;')
+    .text
+      | Absensi
+
+
+  .right.menu
+    a(class='item grey-text',href='#')
+      i.alarm.outline.icon.medium.grey-text
+    a.item.ui.dropdown
+      .text.grey-text
+        | #{username}
+      i.dropdown.icon
+      .menu
+        .item.nav-pengaturan
+          i.setting.icon.grey-text
+          span.grey-text Pengaturan
+        .item.nav-keluar
+          i.sign.out.icon.grey-text
+          span.grey-text Keluar
+
+block main-middle
+  if (messages.pesan)
+    .ui.segment.grey-text
+      .ui.red.message
+        span= messages.pesan
+  .ui.segment.grey-text(align='center') Absensi
+  .ui.segment.grey-text(align='center')
+    table.ui.sortable.celled.table(ng-controller='controllerGetAbsensi')
+     thead
+      tr
+        th.sorted.descending Tanggal
+        th Jam Masuk
+        th Lokasi
+        th Keterangan
+     tbody
+     tr(ng-repeat='contact in paraAbsensi')
+         td {{contact.tanggal}}
+         td {{contact.jam}}
+         td {{contact.lokasi1}} <-> {{contact.lokasi2}}
+         td {{contact.keterangan}}
+     tfoot
+      tr
+       th(colspan='4')
+        .ui.right.floated.pagination.menu
+         a.icon.item
+          i.left.chevron.icon
+         a.item 1
+         a.item 2
+         a.item 3
+         a.item 4
+         a.icon.item
+          i.right.chevron.icon
+
+
+block right-middle
+  .ui.card
+    #hidden-username(style='display:none') #{username}
+    #hidden-access-token(style='display:none') #{access_token}
+    #hidden-user-id(style='display:none') #{user_id}
+    .image
+      img(src='{{foto}}')
+    .content
+      a.header {{username}}
+      .meta
+        span.date {{nama_lengkap}}
+      .description
+        | {{bio}}
+
+    .extra.content
+      a(href='/member/siswa/pengaturan')
+        i.setting.icon
+        | Pengaturan

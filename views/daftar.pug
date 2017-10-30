@@ -1,0 +1,27 @@
+extends templates/publicTemplateRegistration
+
+block navigasi
+  a(class='item',href='/')
+    img(class='ui small image',src='/images/vidyanusa.png')
+  .right.menu
+    a(class='item grey-text',href='/tentang')
+      aside(class='grey-text') Tentang Vidyanusa
+    a(class='item grey-text',href='/masuk')
+      aside(class='grey-text') Masuk
+    a(class='item grey-text',href='/daftar',style='color:#4183C4;')
+      aside(class='grey-text') Daftar
+
+block content
+
+  if (messages.pesan)
+    .ui.red.message
+      i.warning.sign.icon
+      | Terjadi kesalahan
+      br
+      span= messages.pesan
+
+
+  div(ng-controller='controllerDaftar')
+    .ui.grid.stackable(ng-if="default == 'true'", ng-include="'daftar/default'")
+    .ui.grid.stackable(ng-if="siswa == 'true'", ng-include="'daftar/siswa'")
+    .ui.grid.stackable(ng-if="guru == 'true'", ng-include="'daftar/guru'")

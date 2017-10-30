@@ -1,0 +1,87 @@
+extends templates/template1
+
+block navigasi
+  a(class='item primary-color',href='/')
+    .text.grey-text
+      | Dashboard
+  a(class='item primary-color',href='/member/sekolah/kelas')
+    .text(style='color:#4183C4;')
+      | Kelas
+
+
+  .right.menu
+    a(class='item grey-text',href='#')
+      i.alarm.outline.icon.medium.grey-text
+    a.item.ui.dropdown
+      .text.grey-text
+        | #{username}
+      i.dropdown.icon
+      .menu
+        .item.nav-pengaturan
+          i.setting.icon.grey-text
+          span.grey-text Pengaturan
+        .item.nav-keluar
+          i.sign.out.icon.grey-text
+          span.grey-text Keluar
+
+block main-middle
+  if (messages.pesan)
+    .ui.segment.grey-text
+      .ui.red.message
+        span= messages.pesan
+  .ui.segment.grey-text(align='center')
+    | Daftar Kelas
+  .ui.segment.grey-text
+    .sixteen.wide.column
+
+        a#tambah-kelas(href='#',class='ui button button-submit',style='background: linear-gradient(to bottom, rgba(73,155,234,1) 0%, rgba(6,77,153,1) 100%);color:#FFFFFF;float:right;')
+          i.plus.icon
+          | Tambah Kelas
+
+        br
+        br
+        table.ui.very.basic.collapsing.celled.table(style='width:100%;',ng-controller='controllerGetKelas')
+          thead
+            tr
+              td Kelas
+              td
+          tbody
+            tr(ng-repeat='kelas in paraKelas')
+              td {{kelas.nama_kelas}}
+              td
+                a(href='/member/sekolah/kelas/detail/{{kelas._id}}',class='ui button button-submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;') Lihat Detail
+
+
+block right-middle
+  .ui.card
+    #hidden-id-sekolah(style='display:none') #{sekolah}
+    #hidden-username(style='display:none') #{username}
+    #hidden-access-token(style='display:none') #{access_token}
+
+    .image
+      img(src='{{foto}}')
+    .content
+      a.header {{username}}
+      .meta
+        span.date {{nama_lengkap}}
+      .description
+        | {{bio}}
+
+    .extra.content
+      a(href='/pengaturan')
+        i.setting.icon
+        | Pengaturan
+
+block modal
+  .ui.modal.modal-tambah-kelas
+    i.close.icon
+    .header Form Tambah Kelas
+    .content
+      form.ui.form(method='post',action='/member/sekolah/kelas/tambah')
+        .field
+          label Nama Kelas
+          input(type='hidden', name='sekolah', value=sekolah)
+          input(type='text', name='nama_kelas', placeholder='Tulis nama kelas')
+
+        .field
+          button.ui.button(type='submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;') Kirim

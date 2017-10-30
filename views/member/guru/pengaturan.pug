@@ -1,0 +1,83 @@
+extends templates/template1
+
+block navigasi
+  a(class='item primary-color',href='/')
+    .text.grey-text
+      | Dashboard
+  a(class='item primary-color',href='/member/guru/kelas')
+    .text.grey-text
+      | Kelas
+
+
+  .right.menu
+    a(class='item grey-text',href='#')
+      i.alarm.outline.icon.medium.grey-text
+    a.item.ui.dropdown
+      .text.grey-text
+        | #{username}
+      i.dropdown.icon
+      .menu
+        .item.nav-pengaturan
+          i.setting.icon.grey-text
+          span.grey-text Pengaturan
+        .item.nav-keluar
+          i.sign.out.icon.grey-text
+          span.grey-text Keluar
+
+block main-middle
+  if (messages.pesan)
+    .ui.segment.grey-text
+      .ui.red.message
+        span= messages.pesan
+  .ui.segment.grey-text(align='center') Pengaturan
+
+  .ui.segment.grey-text
+    i.icon.list
+    |  Profil
+    br
+    br
+    form.ui.form(method='post',action='/member/guru/pengaturan/profil/ubah',ng-controller='controllerGetProfileKelasSiswa')
+      .field
+        label Nama Lengkap
+        input(type='hidden', name='pengguna', value=user_id)
+        input(type='text', name='nama_lengkap', value='{{nama_lengkap}}',placeholder='Tulis nama lengkap disini.')
+      .field
+        label Bio
+        textarea(name='bio', placeholder='Tuliskan cerita singkat tentang Anda disini.') {{bio}}
+
+      .field
+        button.ui.button(type='submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;') Ubah Data Profil
+
+
+block right-middle
+  .ui.card
+    #hidden-username(style='display:none') #{username}
+    #hidden-access-token(style='display:none') #{access_token}
+
+    .image
+      img(src='{{foto}}')
+    .content
+      a.header {{username}}
+      .meta
+        span.date {{nama_lengkap}}
+      .description
+        | {{bio}}
+
+    .extra.content
+      a#ganti-foto-profil(href='#')
+        i.id.badge.icon
+        | Ubah foto profil
+
+block modal
+  .ui.modal.modal-ganti-foto-profil
+    i.close.icon
+    .header Form Ubah Foto Profil
+    .content
+      form.ui.form(method='post',action='/member/guru/pengaturan/foto_profil/ubah', enctype='multipart/form-data')
+        .field
+          label Pilih berkas foto(.png/.jpg/.jpeg)
+          input(type='hidden', name='pengguna', value=user_id)
+          input(type='file', name='foto', placeholder='Masukan kode kelas')
+
+        .field
+          button.ui.button(type='submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;') Kirim

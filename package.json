@@ -1,0 +1,51 @@
+{
+  "name": "vidyanusa-layer-1-2",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "devstart": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "angular": "^1.6.4",
+    "async": "^2.4.1",
+    "body-parser": "^1.17.2",
+    "busboy": "^0.2.14",
+    "chokidar": "^1.7.0",
+    "connect-busboy": "0.0.2",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^1.3.2",
+    "connect-multiparty": "^2.0.0",
+    "cookie-parser": "~1.4.3",
+    "crypto": "0.0.3",
+    "debug": "~2.6.3",
+    "express": "^4.15.4",
+    "express-fileupload": "^0.1.4",
+    "express-flash": "git://github.com/RGBboy/express-flash.git",
+    "express-group-routes": "^1.1.0",
+    "express-messages": "^1.0.1",
+    "express-session": "^1.15.3",
+    "express-validator": "^3.2.0",
+    "formidable": "^1.1.1",
+    "fs": "0.0.1-security",
+    "ftp": "^0.3.10",
+    "google-alerts": "0.0.3",
+    "jade": "^1.11.0",
+    "mongoose": "^4.10.4",
+    "morgan": "~1.8.1",
+    "multer": "^1.3.0",
+    "multer-ftp": "^1.2.0",
+    "node-rest-client": "^3.1.0",
+    "nodemailer": "^4.1.2",
+    "nodemon": "^1.11.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "pug": "latest",
+    "serve-favicon": "~2.4.2",
+    "streamifier": "^0.1.1",
+    "sweetalert2": "^6.6.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}

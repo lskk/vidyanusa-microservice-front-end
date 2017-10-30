@@ -1,0 +1,75 @@
+extends templates/template1
+
+block navigasi
+  a(class='item primary-color',href='/',style='color:#4183C4;')
+    .text
+      | Dashboard
+  a(class='item primary-color',href='/member/guru/kelas')
+    .text.grey-text
+      | Kelas
+
+
+  .right.menu
+    a(class='item grey-text',href='#')
+      i.alarm.outline.icon.medium.grey-text
+    a.item.ui.dropdown
+      .text.grey-text
+        | #{username}
+      i.dropdown.icon
+      .menu
+        .item.nav-pengaturan
+          i.setting.icon.grey-text
+          span.grey-text Pengaturan
+        .item.nav-keluar
+          i.sign.out.icon.grey-text
+          span.grey-text Keluar
+
+block main-middle
+  if (messages.pesan)
+    .ui.segment.grey-text
+      .ui.red.message
+        span= messages.pesan
+  .ui.segment.grey-text(align='center')
+    i.feed.icon
+    | Timeline Kegiatan Siswa
+  span(ng-controller='controllerGetTimeline')
+    span(ng-repeat='timeline in timelines')
+      .ui.segment.grey-text
+        .ui.grid
+          .two.wide.column
+            a(href='http://portofolio.vidyanusa.id/{{timeline.username}}')
+              img.ui.medium.image(src='{{timeline.foto}}')
+          .four.wide.column(style='margin-left:-1.5em;')
+            a(href='http://portofolio.vidyanusa.id/{{timeline.username}}')
+              b {{timeline.username}}
+            br
+            | {{timeline.created_at}}
+        .ui.grid
+          .sixteen.wide.column
+            | {{timeline.judul}}
+            br
+            span(style='color:red;') # {{timeline.kategori}}
+        .ui.grid
+          .sixteen.wide.column
+            img.ui.large.image(src='{{timeline.file_berkas}}')
+      br
+
+
+block right-middle
+  .ui.card
+    #hidden-username(style='display:none') #{username}
+    #hidden-access-token(style='display:none') #{access_token}
+
+    .image
+      img(src='{{foto}}')
+    .content
+      a.header {{username}}
+      .meta
+        span.date {{nama_lengkap}}
+      .description
+        | {{bio}}
+
+    .extra.content
+      a(href='/member/guru/pengaturan')
+        i.setting.icon
+        | Pengaturan

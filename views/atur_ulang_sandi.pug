@@ -1,0 +1,27 @@
+extends templates/publicTemplateLogin
+
+block navigasi
+  a(class='item',href='/')
+    img(class='ui small image',src='/images/vidyanusa.png')
+  .right.menu
+    a(class='item grey-text',href='/tentang')
+      aside(class='grey-text') Tentang Vidyanusa
+    a(class='item grey-text',href='/masuk')
+      aside(class='grey-text') Masuk
+    a(class='item grey-text',href='/daftar')
+      aside(class='grey-text') Daftar
+
+block content
+
+  .sixteen.wide.column
+    h4 Form atur ulang sandi
+    form(class='ui form',method='post',action='/atur_ulang_sandi')
+      div(class='required field')
+        input(type='email',placeholder='Tuliskan email akun Anda disini',name='email')
+      div(class='required field')
+        button(type='submit',class='huge ui button button-submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;') Kirim
+
+
+    if (messages.pesan)
+      .ui.red.message
+        span= messages.pesan

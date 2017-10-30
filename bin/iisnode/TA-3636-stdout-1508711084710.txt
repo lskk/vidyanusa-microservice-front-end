@@ -1,0 +1,8 @@
+[0mGET /javascripts/angular/vidyanusa.js [32m200 [0m191.750 ms - 1994[0m
+[0mGET /stylesheets/custom.css [32m200 [0m352.664 ms - 742[0m
+[0mGET /dist/semantic.min.js [32m200 [0m352.447 ms - 278440[0m
+[0mGET /images/vidyanusa.png [32m200 [0m537.087 ms - 29184[0m
+[0mGET /javascripts/custom.js [32m200 [0m538.046 ms - 239[0m
+[0mGET /dist/semantic.css [32m200 [0m208.079 ms - 751258[0m
+[0mGET /images/product-carousel-1.png [32m200 [0m346.727 ms - 174332[0m
+[0mGET /images/product-carousel-2.png [32m200 [0m181.971 ms - 424671[0m

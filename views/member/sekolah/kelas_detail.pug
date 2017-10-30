@@ -1,0 +1,172 @@
+extends templates/template1
+
+block navigasi
+  a(class='item primary-color',href='/')
+    .text.grey-text
+      | Dashboard
+  a(class='item primary-color',href='/member/sekolah/kelas')
+    .text(style='color:#4183C4;')
+      | Kelas
+
+
+  .right.menu
+    a(class='item grey-text',href='#')
+      i.alarm.outline.icon.medium.grey-text
+    a.item.ui.dropdown
+      .text.grey-text
+        | #{username}
+      i.dropdown.icon
+      .menu
+        .item.nav-pengaturan
+          i.setting.icon.grey-text
+          span.grey-text Pengaturan
+        .item.nav-keluar
+          i.sign.out.icon.grey-text
+          span.grey-text Keluar
+
+block main-middle
+  if (messages.pesan)
+    .ui.segment.grey-text
+      .ui.red.message
+        span= messages.pesan
+  .ui.segment.grey-text(align='center')
+    | Detail Kelas
+  .ui.segment.grey-text
+    .sixteen.wide.column(ng-controller='controllerGetDetailKelas')
+      span(ng-repeat='detail in details')
+
+        table.ui.very.basic.collapsing.table
+          tr
+            td Kode
+            td :
+            td {{detail.kode}}
+
+        table.ui.very.basic.collapsing.table          
+          tr
+            td Nama
+            td :
+            td
+              form.ui.form(action='/member/sekolah/kelas/detail/ubah/nama',method='post')
+                span.field
+                  .ui.grid
+                    .eight.wide.column
+                      input.idKelas(type='hidden', name='kelas', value=kelas)
+                      input(type='text', name='nama', placeholder='Nama Kelas',value='{{detail.nama_kelas}}')
+                    .eight.wide.column
+                      button(type='submit',class='ui button button-submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;')
+                        i.write.icon
+                        | Ubah Nama
+
+
+        table.ui.very.basic.collapsing.table
+          tr
+            td Mata Pelajaran
+            td :
+            td
+              ul(ng-repeat='mapel in paraMapel')
+                li {{mapel.nama}}
+
+              a#tambah-mapel(onclick="tambah_mapel()",href='#',class='ui button button-submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;float:right;')
+                i.plus.icon
+                | Tambah Mata Pelajaran
+
+        table.ui.very.basic.collapsing.table
+          tr
+            td Guru
+            td :
+            td
+              ul(ng-repeat='guru in paraGuru')
+                li {{guru.nama_guru}} mengajar {{guru.nama_mapel}}
+
+              a#tambah-guru(onclick="tambah_guru()",href='#',class='ui button button-submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;float:right;')
+                i.plus.icon
+                | Tambah Guru
+  .ui.segment.grey-text
+    .sixteen.wide.column(align='center') Siswa yang terdaftar dalam kelas
+    br
+    a#tambah-guru(onclick="tambah_siswa()",href='#',class='ui button button-submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;float:right;')
+      i.plus.icon
+      | Tambah Siswa
+    .sixteen.wide.column(ng-controller='controllerGetSiswaDalamKelas')
+      table.ui.very.basic.collapsing.table#tabel1(style='width:100%;')
+        thead
+          tr
+            th Foto profil
+            th Username
+            th Nama Lengkap
+        tbody
+          tr(ng-repeat='student in students')
+            td
+              img.ui.tiny.image(src='{{student.profil.foto}}')
+            td {{student.profil.username}}
+            td {{student.profil.nama_lengkap}}
+
+
+
+block right-middle
+  .ui.card
+    #hidden-id-sekolah(style='display:none') #{sekolah}
+    #hidden-id-kelas(style='display:none') #{kelas}
+    #hidden-username(style='display:none') #{username}
+    #hidden-access-token(style='display:none') #{access_token}
+    .idKelas(style='display:none') #{kelas}
+
+    .image
+      img(src='{{foto}}')
+    .content
+      a.header {{username}}
+      .meta
+        span.date {{nama_lengkap}}
+      .description
+        | {{bio}}
+
+    .extra.content
+      a(href='/pengaturan')
+        i.setting.icon
+        | Pengaturan
+
+block modal
+  .ui.modal.modal-tambah-mapel
+    i.close.icon
+    .header Form Tambah Mata Pelajaran
+    .content
+      form.ui.form(method='post',action='/member/sekolah/kelas/detail/ubah/mapel')
+        .field(ng-controller='controllerAllMapel')
+          label Pilih Mata Pelajaran
+          input(type='hidden', name='kelas', value=kelas)
+          select.ui.search.dropdown(name='mapel')
+                option(ng-repeat='mapel in paraMapel',value='{{mapel._id}}') {{mapel.nama_mapel}}
+
+        .field
+          button.ui.button(type='submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;') Kirim
+
+  .ui.modal.modal-tambah-siswa
+    i.close.icon
+    .header Form Tambah Siswa
+    .content
+      form.ui.form(method='post',action='/member/sekolah/kelas/detail/ubah/siswa')
+        .field(ng-controller='controllerAllSiswa')
+          label Pilih Siswa
+          input(type='hidden', name='kelas', value=kelas)
+          select.ui.search.dropdown(name='siswa')
+                option(ng-repeat='siswa in paraSiswa',value='{{siswa._id}}') {{siswa.profil.nama_lengkap}} - {{siswa.email}}
+
+        .field
+          button.ui.button(type='submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;') Kirim
+
+  .ui.modal.modal-tambah-guru
+    i.close.icon
+    .header Form Tambah Guru
+    .content
+      form.ui.form(method='post',action='/member/sekolah/kelas/detail/ubah/guru')
+        .field(ng-controller='controllerAllGuru')
+          label Pilih Guru
+          select.ui.search.dropdown(name='guru')
+                option(ng-repeat='guru in paraGuru',value='{{guru._id}}') {{guru.profil.nama_lengkap}} - {{guru.email}}
+        .field(ng-controller='controllerGetDetailKelas')
+          label Pilih Mata Pelajaran
+          input(type='hidden', name='kelas', value=kelas)
+          select.ui.search.dropdown(name='mapel')
+                option(ng-repeat='mapel in paraMapel',value='{{mapel.id}}') {{mapel.nama}}
+        .field
+          button.ui.button(type='submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;') Kirim

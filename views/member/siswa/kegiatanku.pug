@@ -1,0 +1,75 @@
+extends templates/template1
+
+block navigasi
+  a(class='item primary-color',href='/')
+    .text.grey-text
+      | Dashboard
+  a(class='item primary-color',href='/member/siswa/kegiatanku',style='color:#4183C4;')
+    .text
+      | Kegiatanku
+  a(class='item primary-color',href='/member/siswa/absensi')
+    .text.grey-text
+      | Absensi
+
+
+  .right.menu
+    a(class='item grey-text',href='#')
+      i.alarm.outline.icon.medium.grey-text
+    a.item.ui.dropdown
+      .text.grey-text
+        | #{username}
+      i.dropdown.icon
+      .menu
+        .item.nav-pengaturan
+          i.setting.icon.grey-text
+          span.grey-text Pengaturan
+        .item.nav-keluar
+          i.sign.out.icon.grey-text
+          span.grey-text Keluar
+
+block main-middle
+  if (messages.pesan)
+    .ui.segment.grey-text
+      .ui.green.message
+        span= messages.pesan
+  .ui.segment.grey-text(align='center') Kegiatanku
+  br
+  .ui.grid(ng-controller='controllerKegiatanku')
+    span(ng-repeat="activity in activities | orderBy : '-activity.created_at'")
+      .eight.wide.column
+        .ui.segment.grey-text
+          img.ui.large.image(src='{{activity.file_berkas}}')
+          br
+          b {{activity.judul}}
+          br
+          span # {{activity.nama_kategori}}
+          br
+          br
+          span {{activity.created_at}}
+          br
+          br
+          a(href='/member/siswa/kegiatanku/hapus/{{activity.id}}/{{activity.pengguna}}', style='color:red')
+            i.trash.outline.icon
+            | Hapus kegiatan ini
+
+      br
+
+block right-middle
+  .ui.card
+    #hidden-username(style='display:none') #{username}
+    #hidden-access-token(style='display:none') #{access_token}
+    #hidden-user-id(style='display:none') #{user_id}
+
+    .image
+      img(src='{{foto}}')
+    .content
+      a.header {{username}}
+      .meta
+        span.date {{nama_lengkap}}
+      .description
+        | {{bio}}
+
+    .extra.content
+      a(href='/member/siswa/pengaturan')
+        i.setting.icon
+        | Pengaturan

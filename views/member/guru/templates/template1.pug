@@ -1,0 +1,87 @@
+doctype html
+html(lang='en')
+  head
+    title Vidyanusa | #{title}
+    link(rel='shortcut icon', href='/images/shortcut-icon.png')
+    link(rel='stylesheet', href='/dist/semantic.css')
+    link(rel='stylesheet', href='/stylesheets/custom-grid.css')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js')
+    script(src='/javascripts/angular/dashboard.js')
+    script(src='/dist/semantic.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js')
+  body(ng-app='dashboardApp',ng-controller='controllerGetProfile')
+    section.ui.container
+      nav.ui.secondary.pointing.menu
+        block navigasi
+      main
+        .ui.equal.width.grid
+          .column
+            .ui.segment
+              .ui.middle.aligned.divided.list
+                .item(style='padding:1em;')
+                  .content
+                    a.grey-text(href='#')
+                      i.write.icon
+                      | Blog
+                .item(style='padding:1em;')
+                  .content
+                    a.grey-text(href='http://localhost:3300?access_token='+access_token)
+                      i.talk.outline.icon
+                      | Forum
+                .item(style='padding:1em;')
+                  .content
+                    a.grey-text(href='#')
+                      i.book.icon
+                      | LMS
+                .item(style='padding:1em;')
+                  .content
+                  a.grey-text(href='#')
+                    i.user.icon
+                    | Portofolio
+          .eight.wide.column
+            block main-middle
+          .column
+            block right-middle
+
+      br
+      footer.grey-text(align='center')= copyright
+      block modal
+    script.
+      $('.ui.dropdown').dropdown()
+      $('.nav-pengaturan').click(function(){
+        document.location.href = '/member/guru/pengaturan'
+      })
+      $('.nav-keluar').click(function(){
+        document.location.href = '/keluar'
+      })
+      $('.ui.accordion').accordion()
+
+      $('.ubah-data-akademik').click(function(){
+        $('.ui.modal.ubah-institusi')
+          .modal('show')
+          .modal({
+                  blurring: true,
+                  closable : true
+                })
+      })
+
+      $('#tambah-kelas').click(function(){
+        $('.ui.modal.modal-tambah-kelas')
+          .modal('show')
+          .modal({
+                  blurring: true,
+                  closable : true
+                })
+      })
+
+      $('#ganti-foto-profil').click(function(){
+        $('.ui.modal.modal-ganti-foto-profil')
+          .modal('show')
+          .modal({
+                  blurring: true,
+                  closable : true
+                })
+      })
+
+      $('.menu .item').tab()

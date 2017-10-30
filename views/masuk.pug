@@ -1,0 +1,29 @@
+extends templates/publicTemplateLogin
+
+block navigasi
+  a(class='item',href='/')
+    img(class='ui small image',src='/images/vidyanusa.png')
+  .right.menu
+    a(class='item grey-text',href='/tentang')
+      aside(class='grey-text') Tentang Vidyanusa
+    a(class='item grey-text',href='/masuk')
+      aside(class='grey-text',style='color:#4183C4;') Masuk
+    a(class='item grey-text',href='/daftar')
+      aside(class='grey-text') Daftar
+
+block content
+
+  .sixteen.wide.column
+
+    form(class='ui form',method='post',action='/masuk')
+      div(class='required field')
+        input(type='text',placeholder='Email',ng-model='inputUsername',name='email')
+      div(class='required field')
+        input(type='password',placeholder='Sandi',ng-model='inputPassword',name='sandi')
+        input(type='hidden',name='link',value=''+link+last)
+      div(class='required field')
+        button(type='submit',class='huge ui button button-submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;') Kirim
+        a(href='/daftar',class='white-text') Lupa sandi? Ajukan reset sandi disini.
+    if (messages.pesan)
+      .ui.red.message
+        span= messages.pesan
