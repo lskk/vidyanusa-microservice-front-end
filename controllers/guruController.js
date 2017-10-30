@@ -5,10 +5,10 @@ var restClient = require('node-rest-client').Client;
 var rClient = new restClient();
 // var rClient = new restClient({
 //  proxy:{
-//            host:"cache.itb.ac.id",
-//            port: 8080,
-//            user:"muhammadilhamfadillah",
-//            password:"31826113"
+//            host:"",
+//            port: ,
+//            user:"",
+//            password:""
 //        }
 // });
 
@@ -24,9 +24,9 @@ var fs = require('fs')
 var base_api_general_url = 'http://apigeneral.vidyanusa.id';
 
 var connectionProperties = {
-    host: "ftp.vidyanusa.id",
-    user: "ftp.vidyanusa.id|vidyanusaftp",
-    password: "VvIiDdYyAa123!"
+    host: "",
+    user: "",
+    password: ""
 };
 
 var async = require('async')

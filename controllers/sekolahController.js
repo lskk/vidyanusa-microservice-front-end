@@ -14,9 +14,9 @@ var FTPStorage = require('multer-ftp')
 var FTP = require('ftp')
 var fs = require('fs')
 var connectionProperties = {
-    host: "ftp.vidyanusa.id",
-    user: "ftp.vidyanusa.id|vidyanusaftp",
-    password: "VvIiDdYyAa123!"
+    host: "",
+    user: "",
+    password: ""
 };
 
 var async = require('async')

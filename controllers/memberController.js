@@ -3,14 +3,7 @@ const copyright = "© 2017 Vidyanusa Institut Teknologi Bandung"
 //Import untuk REST API
 var restClient = require('node-rest-client').Client;
 var rClient = new restClient();
-// var rClient = new restClient({
-//  proxy:{
-//            host:"cache.itb.ac.id",
-//            port: 8080,
-//            user:"muhammadilhamfadillah",
-//            password:"31826113"
-//        }
-// });
+
 
 var async = require('async')
 var base_api_general_url = 'http://apigeneral.vidyanusa.id';
