@@ -5,10 +5,7 @@ var restClient = require('node-rest-client').Client;
 var rClient = new restClient();
 // var rClient = new restClient({
 //  proxy:{
-//            host:"",
-//            port: ,
-//            user:"",
-//            password:""
+//
 //        }
 // });
 
@@ -24,9 +21,7 @@ var fs = require('fs')
 var base_api_general_url = 'http://apigeneral.vidyanusa.id';
 
 var connectionProperties = {
-    host: "",
-    user: "",
-    password: ""
+  
 };
 
 var async = require('async')
@@ -56,11 +51,11 @@ exports.kelas_detail = function(req, res){
       var idKelas = req.params.id
       //Cek apakah kelas yang dituju terdaftar di db
       args = {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         data: {
                 access_token: session.token,
                 id_kelas: idKelas
         },
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
       };
 
       rClient.post(base_api_general_url+'/daftar_kelas/detail', args, function (data, response) {

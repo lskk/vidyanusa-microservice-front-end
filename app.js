@@ -33,7 +33,7 @@ app.use(session({
                 secret: "vidyanusaadministrator",
                 resave: false,
                 saveUninitialized: true,
-                store: new MongoStore({url:'mongodb://thesisvidyanusa:kjc5qvrh@167.205.7.230:27017/vidyanusa'}),
+                store: new MongoStore({url:''}),
                 cookie:{secure:!true}
                 }))
 app.use(flash())

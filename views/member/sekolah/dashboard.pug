@@ -32,8 +32,8 @@ block main-middle
   .ui.segment.grey-text(align='center')
     i.feed.icon
     | Timeline Kegiatan Siswa
-  span(ng-controller='controllerGetTimeline')
-    span(ng-repeat='timeline in timelines')
+  span(ng-controller='controllerGetTimeline',ng-init='limit=3')
+    span(ng-repeat='timeline in timelines | limitTo: limit as results')
       .ui.segment.grey-text
         .ui.grid
           .two.wide.column
@@ -52,8 +52,15 @@ block main-middle
         .ui.grid
           .sixteen.wide.column
             img.ui.large.image(src='{{timeline.file_berkas}}')
+        .ui.grid
+          .sixteen.wide.column
+            a(href='/member/sekolah/kegiatan/hapus/{{timeline.kegiatan}}/{{timeline.pengguna}}', style='color:red')
+              i.trash.outline.icon
+              | Hapus kegiatan ini
       br
-
+    .ui.grid
+      .sixteen.wide.column
+        button(ng-hide='results.length === timelines.length',ng-click='limit=limit+3',style='width:100%;background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;',class='large ui button button-submit') Lihat lebih banyak lagi
 
 block right-middle
   .ui.card

@@ -3,7 +3,11 @@ const copyright = "© 2017 Vidyanusa Institut Teknologi Bandung"
 //Pengaturan REST API
 var restClient = require('node-rest-client').Client;
 var rClient = new restClient();
+// var rClient = new restClient({
+//  proxy:{
 
+//        }
+// });
 
 //Import library pengatur prosedur
 var async = require('async')
@@ -18,9 +22,7 @@ var FTP = require('ftp')
 var fs = require('fs')
 
 var connectionProperties = {
-    host: "",
-    user: "",
-    password: ""
+  
 };
 
 //Variable Global API yang digunakan
@@ -130,11 +132,11 @@ exports.pengaturan_prestasi_tambah = function(req, res){
           if(data.success == true){
               console.log('KEMBALIAN:'+JSON.stringify(data.data))
               req.flash('pesan', data.data.message);
-              return res.redirect('/member/siswa/pengaturan')
+              return res.redirect('/member/siswa/pengaturan/portofolio')
           }else{
               console.log('KEMBALIAN:'+JSON.stringify(data.data))
               req.flash('pesan', data.data.message);
-              return res.redirect('/member/siswa/pengaturan')
+              return res.redirect('/member/siswa/pengaturan/portofolio')
           }
 
       });
@@ -166,11 +168,11 @@ exports.pengaturan_pengalaman_organisasi_tambah = function(req, res){
           if(data.success == true){
               console.log('KEMBALIAN:'+JSON.stringify(data.data))
               req.flash('pesan', data.data.message);
-              return res.redirect('/member/siswa/pengaturan')
+              return res.redirect('/member/siswa/pengaturan/portofolio')
           }else{
               console.log('KEMBALIAN:'+JSON.stringify(data.data))
               req.flash('pesan', data.data.message);
-              return res.redirect('/member/siswa/pengaturan')
+              return res.redirect('/member/siswa/pengaturan/portofolio')
           }
 
       });
@@ -202,11 +204,11 @@ exports.pengaturan_minat_bakat_tambah = function(req, res){
           if(data.success == true){
               console.log('KEMBALIAN:'+JSON.stringify(data.data))
               req.flash('pesan', data.data.message);
-              return res.redirect('/member/siswa/pengaturan')
+              return res.redirect('/member/siswa/pengaturan/portofolio')
           }else{
               console.log('KEMBALIAN:'+JSON.stringify(data.data))
               req.flash('pesan', data.data.message);
-              return res.redirect('/member/siswa/pengaturan')
+              return res.redirect('/member/siswa/pengaturan/portofolio')
           }
 
       });
@@ -238,11 +240,11 @@ exports.pengaturan_sertifikat_tambah = function(req, res){
           if(data.success == true){
               console.log('KEMBALIAN:'+JSON.stringify(data.data))
               req.flash('pesan', data.data.message);
-              return res.redirect('/member/siswa/pengaturan')
+              return res.redirect('/member/siswa/pengaturan/portofolio')
           }else{
               console.log('KEMBALIAN:'+JSON.stringify(data.data))
               req.flash('pesan', data.data.message);
-              return res.redirect('/member/siswa/pengaturan')
+              return res.redirect('/member/siswa/pengaturan/portofolio')
           }
 
       });
@@ -274,11 +276,11 @@ exports.pengaturan_hobi_tambah = function(req, res){
           if(data.success == true){
               console.log('KEMBALIAN:'+JSON.stringify(data.data))
               req.flash('pesan', data.data.message);
-              return res.redirect('/member/siswa/pengaturan')
+              return res.redirect('/member/siswa/pengaturan/portofolio')
           }else{
               console.log('KEMBALIAN:'+JSON.stringify(data.data))
               req.flash('pesan', data.data.message);
-              return res.redirect('/member/siswa/pengaturan')
+              return res.redirect('/member/siswa/pengaturan/portofolio')
           }
 
       });
@@ -310,11 +312,11 @@ exports.pengaturan_bahasa_yang_dikuasai_tambah = function(req, res){
           if(data.success == true){
               console.log('KEMBALIAN:'+JSON.stringify(data.data))
               req.flash('pesan', data.data.message);
-              return res.redirect('/member/siswa/pengaturan')
+              return res.redirect('/member/siswa/pengaturan/portofolio')
           }else{
               console.log('KEMBALIAN:'+JSON.stringify(data.data))
               req.flash('pesan', data.data.message);
-              return res.redirect('/member/siswa/pengaturan')
+              return res.redirect('/member/siswa/pengaturan/portofolio')
           }
 
       });
@@ -347,11 +349,11 @@ exports.pengaturan_karya_tambah = function(req, res){
           if(data.success == true){
               console.log('KEMBALIAN:'+JSON.stringify(data.data))
               req.flash('pesan', data.data.message);
-              return res.redirect('/member/siswa/pengaturan')
+              return res.redirect('/member/siswa/pengaturan/portofolio')
           }else{
               console.log('KEMBALIAN:'+JSON.stringify(data))
               req.flash('pesan', JSON.stringify(data));
-              return res.redirect('/member/siswa/pengaturan')
+              return res.redirect('/member/siswa/pengaturan/portofolio')
           }
 
       });
@@ -496,11 +498,11 @@ exports.pengaturan_medsos_ubah = function(req, res){
           if(data.success == true){
               console.log('KEMBALIAN:'+JSON.stringify(data.data))
               req.flash('pesan', data.data.message);
-              return res.redirect('/member/siswa/pengaturan')
+              return res.redirect('/member/siswa/pengaturan/portofolio')
           }else{
               console.log('KEMBALIAN:'+JSON.stringify(data.data))
               req.flash('pesan', JSON.stringify(data.data));
-              return res.redirect('/member/siswa/pengaturan')
+              return res.redirect('/member/siswa/pengaturan/portofolio')
           }
 
       });
@@ -700,7 +702,7 @@ exports.kegiatanku_hapus = function(req, res){
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     };
 
-    rClient.post('http://localhost:3002/kegiatan/hapus', args, function (data, response) {
+    rClient.post('http://apiportal.vidyanusa.id/kegiatan/hapus', args, function (data, response) {
 
         if(data.success == true){
             req.flash('pesan', 'Kegiatan berhasil dihapus');

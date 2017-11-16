@@ -27,6 +27,7 @@ router.group("/guru", (router) => {
 });
 
 router.group("/sekolah", (router) => {
+	  router.get("/kegiatan/hapus/:id/:pengguna", sekolah_controller.kegiatan_hapus);
     router.get("/kelas/", sekolah_controller.kelas);
     router.get("/kelas/detail/:id", sekolah_controller.kelas_detail);
 		router.get("/pengaturan", sekolah_controller.pengaturan);

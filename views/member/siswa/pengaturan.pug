@@ -95,6 +95,22 @@ block main-middle
                 i.plus.icon
                 | Tambah kelas
 
+    .ui.segment.grey-text
+            i.icon.student
+            |  Sekolah
+            br
+            br
+            span(ng-controller='controllerGetProfileKelasSiswa')
+                | Silahkan tentukan Asal sekolah Anda
+                br
+                br
+                span
+                    .ui.ignored.positive.message(ng-repeat='kelas in paraKelas') {{kelas.nama_kelas}}
+                br
+                a#tambah-kelas-siswa(href='#',class='ui button button-submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;')
+                    i.plus.icon
+                    | Tambah kelas
+
 
 
 block right-middle

@@ -72,7 +72,7 @@ angularModule.controller('controllerGetProfile', function($scope, $http, $window
 
   $http(reqProfil).then(function(response){
 
-    console.log("Responsenya: "+JSON.stringify(response))
+    console.log("ResponseKembalianAmbilProfil: "+JSON.stringify(response))
     var statusKembalian =  response.data.success
 
     if(statusKembalian == true){
@@ -693,7 +693,7 @@ angularModule.controller('controllerGetTimeline', function($scope, $http, $windo
 
     var data = response.data.data
     var banyakData = data.length
-
+    console.log('Data timeline:'+JSON.stringify(data))
     var daftarTimeline = []
 
     for(var i = 0; i < banyakData; i++){
@@ -704,7 +704,9 @@ angularModule.controller('controllerGetTimeline', function($scope, $http, $windo
                           'created_at' : moment(data[i].created_at).fromNow(),
                           'judul' : data[i].judul,
                           'kategori' : data[i].kategori.nama_kategori,
-                          'file_berkas' : data[i].file_berkas
+                          'file_berkas' : data[i].file_berkas,
+                          'pengguna': data[i].pengguna._id,
+                          'kegiatan': data[i]._id
                         })
     }
 
@@ -712,7 +714,7 @@ angularModule.controller('controllerGetTimeline', function($scope, $http, $windo
 
 
   }, function(data){
-    console.log(data)
+    console.log('Data timeline: '+data)
   });
 
 

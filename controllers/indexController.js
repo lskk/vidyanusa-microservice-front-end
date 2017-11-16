@@ -5,15 +5,13 @@ var nodemailer = require('nodemailer')
 
 //Import untuk REST API
 var restClient = require('node-rest-client').Client;
- var rClient = new restClient();
-/*var rClient = new restClient({
- proxy:{
-           host:"",
-           port: ,
-           user:"",
-           password:""
-       }
-});*/
+var rClient = new restClient();
+// var rClient = new restClient({
+//  proxy:{
+
+//        }
+// });
+
 
 var async = require('async')
 //var base_api_url = 'http://api.vidyanusa.id';
@@ -110,7 +108,9 @@ exports.keluar = function(req, res) {
     var session = req.session
 
     args = {
-    	data: { access_token: session.token
+    	data: {
+                    access_token: session.token,
+                    pengguna: session.id_pengguna
       },
     	headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     };
@@ -241,7 +241,7 @@ exports.daftar_siswa_proses = function (req,res) {
       nama_lengkap: req.body.nama_lengkap,
       jenis_kelamin: req.body.jenis_kelamin,
       sandi: req.body.sandi,
-      kode_kelas: req.body.kode_kelas},
+      sekolah: req.body.sekolah},
   	headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
   };
 
@@ -268,7 +268,7 @@ exports.daftar_siswa_proses = function (req,res) {
 
           async.series({
               one: function(callback) {
-
+                console.log('Error: '+data)
                 if (data.data[0].msg === undefined){
                   pesan = data.data[0].message
                 }else{

@@ -82,18 +82,19 @@ block main-middle
         .ui.grid
           .sixteen.wide.column
             img.ui.large.image(src='{{timeline.file_berkas}}')
-        //.
-          .ui.grid
-            .two.wide.column
-              i.thumbs.outline.up.icon &nbsp;Suka
-            .two.wide.column
-              i.comment.outline.icon &nbsp;Komentari
-          .ui.grid
-            .two.wide.column 0 suka
-            .fourteen.wide.column 0 komentar
-          .ui.grid
-            .two.wide.column 0 suka
-            .fourteen.wide.column 0 komentar
+        .ui.grid
+          .two.wide.column
+            i.thumbs.outline.up.icon &nbsp;Suka
+          .two.wide.column
+            i.comment.outline.icon &nbsp;Komentari
+        .ui.grid
+          .two.wide.column 0 suka
+          .fourteen.wide.column 0 komentar
+        .ui.grid(style='background-color:#ecf0f1;')
+          .two.wide.column
+            img.ui.medium.image(src='{{foto}}')
+          .fourteen.wide.column
+            textarea(onkeypress="tambahKomentar(event)",style='border-radius:1em;width:100%;resize:none;',placeholder='  Tulis komentar anda disini...')
       br
     .ui.grid
       .sixteen.wide.column

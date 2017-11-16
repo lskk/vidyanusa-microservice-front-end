@@ -36,8 +36,10 @@ block content
         .field
           label Sandi
           input(type='password', name='sandi', placeholder='Buat sandi anda')
-        //-
-          .field
-            label Kode kelas
-            input(type='text', name='kode_kelas', placeholder='Kode kelas')
+        .field(ng-controller='controllerDaftarSekolah')
+          label Asal Sekolah
+          select.ui.dropdown(name='sekolah')
+            option(value='') Pilih sekolah
+            option(ng-repeat='school in schools', value='{{school._id}}')
+              | {{school.nama_sekolah}}
         button.ui.button(type='submit', style='color: white; background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);') Kirim

@@ -3,7 +3,11 @@ const copyright = "© 2017 Vidyanusa Institut Teknologi Bandung"
 //Import untuk REST API
 var restClient = require('node-rest-client').Client;
 var rClient = new restClient();
+// var rClient = new restClient({
+//  proxy:{
 
+//        }
+// });
 
 //Pengaturan FTP
 var Client = require('ftp')
@@ -14,14 +18,52 @@ var FTPStorage = require('multer-ftp')
 var FTP = require('ftp')
 var fs = require('fs')
 var connectionProperties = {
-    host: "",
-    user: "",
-    password: ""
+  
 };
 
 var async = require('async')
 var base_api_general_url = 'http://apigeneral.vidyanusa.id';
 //var base_api_general_url = 'http://localhost:3001';
+
+exports.kegiatan_hapus = function(req, res){
+  var session = req.session
+  var idKegiatan = req.params.id
+  var idPengguna = req.params.pengguna
+
+  //Mencek apakah pengguna masuk sebagai sebagai sekolah
+  if(session.peran == null || session.peran != 2){//Bukan sebagai sekolah
+      return res.redirect('/')//Di arahkan ke route index
+  }else{//Sebagai siswa
+
+    //Proses hapus kegiatan
+    args = {
+      data: {
+              access_token: session.token,
+              id: idKegiatan,
+              pengguna: idPengguna
+      },
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    };
+
+    rClient.post('http://apiportal.vidyanusa.id/kegiatan/hapus', args, function (data, response) {
+
+        if(data.success == true){
+            req.flash('pesan', 'Kegiatan berhasil dihapus');
+            return res.redirect('/member/dashboard')
+        }else if(data.success == false){
+            req.flash('pesan', data.data.message);
+            //req.flash('pesan', JSON.stringify(data));
+            return res.redirect('/member/dashboard')
+        }else{
+          req.flash('pesan', 'Unknown issue.');
+          return res.redirect('/member/dashboard')
+        }
+
+    });
+
+      //return res.render('member/siswa/kegiatanku',{title : 'Kegiatanku', username: session.username, access_token:session.token,user_id:session.id_pengguna})
+  }
+}
 
 exports.pengaturan = function(req, res){
 
