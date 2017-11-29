@@ -6,11 +6,7 @@ var nodemailer = require('nodemailer')
 //Import untuk REST API
 var restClient = require('node-rest-client').Client;
 var rClient = new restClient();
-// var rClient = new restClient({
-//  proxy:{
 
-//        }
-// });
 
 
 var async = require('async')

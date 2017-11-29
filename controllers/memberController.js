@@ -3,11 +3,7 @@ const copyright = "© 2017 Vidyanusa Institut Teknologi Bandung"
 //Import untuk REST API
 var restClient = require('node-rest-client').Client;
 var rClient = new restClient();
-// var rClient = new restClient({
-//  proxy:{
 
-//        }
-// });
 
 var async = require('async')
 var base_api_general_url = 'http://apigeneral.vidyanusa.id';
@@ -58,7 +54,7 @@ exports.dashboard = function(req, res) {
 
 
     }else if(session.peran == 3){//Sebagai siswa
-      return res.render('member/siswa/dashboard',{title : 'Dashboard', username: session.username, access_token:session.token})
+      return res.render('member/siswa/dashboard',{title : 'Dashboard', username: session.username, access_token:session.token, pengguna:session.id_pengguna})
     }else if(session.peran == 1){//Sebagai administrator
       return res.send('dashboard Administrator')
     }else if(session.peran == null){//Tidak terdaftar pengguna nya

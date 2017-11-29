@@ -3,11 +3,7 @@ const copyright = "© 2017 Vidyanusa Institut Teknologi Bandung"
 //Import untuk REST API
 var restClient = require('node-rest-client').Client;
 var rClient = new restClient();
-// var rClient = new restClient({
-//  proxy:{
 
-//        }
-// });
 
 //Pengaturan FTP
 var Client = require('ftp')
@@ -18,7 +14,9 @@ var FTPStorage = require('multer-ftp')
 var FTP = require('ftp')
 var fs = require('fs')
 var connectionProperties = {
-  
+    host: "",
+    user: "",
+    password: ""
 };
 
 var async = require('async')
@@ -97,7 +95,7 @@ exports.pengaturan_profil_ubah = function(req, res){
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
       };
 
-      rClient.post('http://localhost:3001/pengaturan/guru/profil/ubah', args, function (data, response) {
+      rClient.post('http://apigeneral.vidyanusa.id/pengaturan/guru/profil/ubah', args, function (data, response) {
 
           if(data.success == true){
               console.log('KEMBALIAN:'+JSON.stringify(data.data))
@@ -198,7 +196,7 @@ exports.pengaturan_foto_profil_ubah = function(req, res){
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
               };
 
-              rClient.post('http://localhost:3001/pengaturan/sekolah/foto_profil/ubah', args, function (data, response) {
+              rClient.post('http://apigeneral.vidyanusa.id/pengaturan/sekolah/foto_profil/ubah', args, function (data, response) {
 
                   if(data.success == true){
                       req.flash('pesan', data.data.message);

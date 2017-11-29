@@ -665,7 +665,7 @@ angularModule.controller('controllerAllKategoriKegiatan', function($scope, $http
 
 angularModule.controller('controllerGetTimeline', function($scope, $http, $window){
   var access_token = $('#hidden-access-token').text()
-
+  var pengguna = $('#hidden-pengguna').text()
   //var base_api_url = 'http://api.vidyanusa.id';
   var base_api_url = 'http://127.0.0.1:3100';
   var base_api_general_url = 'http://apigeneral.vidyanusa.id';
@@ -693,7 +693,7 @@ angularModule.controller('controllerGetTimeline', function($scope, $http, $windo
 
     var data = response.data.data
     var banyakData = data.length
-    console.log('Data timeline:'+JSON.stringify(data))
+    //console.log('Data timeline:'+JSON.stringify(data))
     var daftarTimeline = []
 
     for(var i = 0; i < banyakData; i++){
@@ -706,7 +706,9 @@ angularModule.controller('controllerGetTimeline', function($scope, $http, $windo
                           'kategori' : data[i].kategori.nama_kategori,
                           'file_berkas' : data[i].file_berkas,
                           'pengguna': data[i].pengguna._id,
-                          'kegiatan': data[i]._id
+                          'kegiatan': data[i]._id,
+                          'komentar': data[i].komentar,
+                          'suka': data[i].suka
                         })
     }
 
@@ -714,9 +716,83 @@ angularModule.controller('controllerGetTimeline', function($scope, $http, $windo
 
 
   }, function(data){
-    console.log('Data timeline: '+data)
+    //console.log('Data timeline: '+data)
   });
 
+
+  $scope.muatUlangKomentar = function(keyEvent){
+    if (keyEvent.which === 13){
+      //Muat ulang kegiatan
+
+      $http(reqTimeline).then(function(response){
+
+        var data = response.data.data
+        var banyakData = data.length
+        console.log('Data timeline:'+JSON.stringify(data))
+        var daftarTimeline = []
+
+        for(var i = 0; i < banyakData; i++){
+
+            daftarTimeline.push({
+                              'username' : data[i].pengguna.profil.username,
+                              'foto' : data[i].pengguna.profil.foto,
+                              'created_at' : moment(data[i].created_at).fromNow(),
+                              'judul' : data[i].judul,
+                              'kategori' : data[i].kategori.nama_kategori,
+                              'file_berkas' : data[i].file_berkas,
+                              'pengguna': data[i].pengguna._id,
+                              'kegiatan': data[i]._id,
+                              'komentar': data[i].komentar,
+                              'suka': data[i].suka
+                            })
+        }
+
+        $scope.timelines = daftarTimeline
+        $scope.$applyAsync()
+
+
+      }, function(data){
+        //console.log('Data timeline: '+data)
+      });
+
+    }
+  }
+
+  $scope.muatUlangKomentarSuka = function(){
+
+      $http(reqTimeline).then(function(response){
+
+        var data = response.data.data
+        var banyakData = data.length
+        console.log('Data timeline:'+JSON.stringify(data))
+        var daftarTimeline = []
+
+        for(var i = 0; i < banyakData; i++){
+
+            daftarTimeline.push({
+                              'username' : data[i].pengguna.profil.username,
+                              'foto' : data[i].pengguna.profil.foto,
+                              'created_at' : moment(data[i].created_at).fromNow(),
+                              'judul' : data[i].judul,
+                              'kategori' : data[i].kategori.nama_kategori,
+                              'file_berkas' : data[i].file_berkas,
+                              'pengguna': data[i].pengguna._id,
+                              'kegiatan': data[i]._id,
+                              'komentar': data[i].komentar,
+                              'suka': data[i].suka
+                            })
+        }
+
+        $scope.timelines = daftarTimeline
+        $scope.$applyAsync()
+
+
+      }, function(data){
+        //console.log('Data timeline: '+data)
+      });
+
+
+  }
 
 })
 

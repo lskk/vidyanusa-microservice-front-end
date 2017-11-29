@@ -13,6 +13,7 @@ html(lang='en')
     script(src='/dist/semantic.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js')
     script(type='text/javascript', src='/DataTabel/media/js/jquery.dataTables.min.js')
+    script(type='text/javascript', src='/javascripts/notify.min.js')
   body(ng-app='dashboardApp',ng-controller='controllerGetProfile')
     section.ui.container
       nav.ui.secondary.pointing.menu
@@ -61,11 +62,43 @@ html(lang='en')
       })
       $('.ui.accordion').accordion()
 
-      function tambahKomentar(kegiatan, pengugguna, komentar){
-          if (event.which == 13 || event.keyCode == 13) {
-            alert('enter!')
+      function tambahKomentar(event,reqKegiatan,reqKomentar,fotoPengguna){
+          if (event.which == 13 || event.keyCode == 13) {//Kondisi ketika di enter
+          //$('#containerKomentar'+reqKegiatan).append("<div class='ui grid'><div class='two wide column'><img src='"+fotoPengguna+"' class='ui medium image'/></div><div class='fourteen wide column'><span>"+reqKomentar+"</span></div></div>")
+          $('#textArea'+reqKegiatan).val('')
+          $.post("http://localhost:3002/kegiatan/komentar/tambah",
+            {
+                kegiatan: reqKegiatan,
+                komentar: reqKomentar,
+                pengguna:$('#hidden-pengguna').text(),
+                access_token: $('#hidden-access-token').text()
+            },
+            function(data, status){
+                //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                $.notify(JSON.stringify(data.data.message),'success');
+            });
+
         }
       }
+
+      function sukaiKegiatan(event,reqKegiatan){
+          $("#kontainerIconSuka"+reqKegiatan).html("<i class='thumbs outline up icon'></i>Batal Suka")
+          event.preventDefault()
+          $.post("http://localhost:3002/kegiatan/suka",
+            {
+                kegiatan: reqKegiatan,
+                pengguna:$('#hidden-pengguna').text(),
+                access_token: $('#hidden-access-token').text()
+            },
+            function(data, status){
+                //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                $.notify(JSON.stringify(data.data.message),'success');
+
+            });
+
+
+      }
+      //moment($('.waktuKomentar').text()).fromNow()
 
       $('.ubah-data-akademik').click(function(){
         $('.ui.modal.ubah-institusi')

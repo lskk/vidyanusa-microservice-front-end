@@ -41,7 +41,7 @@ block main-middle
         label Kategori
         select.ui.search.dropdown(name='kategori',id='selectKategori')
               option(value='') Pilih kategori kegiatan
-              option(ng-repeat='category in categories',value='{{category._id}}') {{category.nama_kategori}}
+              option(ng-repeat="category in categories | orderBy : 'nama_kategori'",value='{{category._id}}') {{category.nama_kategori}}
       .field
         label Berkas Foto(.png/.jpg/.jpeg)
         input(type='file',name='foto')
@@ -83,18 +83,36 @@ block main-middle
           .sixteen.wide.column
             img.ui.large.image(src='{{timeline.file_berkas}}')
         .ui.grid
+          .four.wide.column
+            a(href="#",ng-click="muatUlangKomentarSuka()",onclick="sukaiKegiatan(event,$(this).attr('idKegiatanSuka'))",idKegiatanSuka='{{timeline.kegiatan}}',id="kontainerIconSuka{{timeline.kegiatan}}")
+              i.thumbs.outline.up.icon
+              | Suka
+          .four.wide.column
+            a(href="#textArea{{timeline.kegiatan}}")
+              i.comment.outline.icon
+              | Komentar
           .two.wide.column
-            i.thumbs.outline.up.icon &nbsp;Suka
-          .two.wide.column
-            i.comment.outline.icon &nbsp;Komentari
         .ui.grid
-          .two.wide.column 0 suka
-          .fourteen.wide.column 0 komentar
+          .two.wide.column {{timeline.suka.length}} suka
+          .fourteen.wide.column {{timeline.komentar.length}} komentar
+
+        .ui.grid(ng-init='limitKomentar=2')
+          span(ng-repeat="komentarr in timeline.komentar | limitTo: limitKomentar as resultsKomentar",id='containerKomentar{{timeline.kegiatan}}')
+            .ui.grid
+              .two.wide.column
+                img.ui.medium.image(src='{{komentarr.pengguna.profil.foto}}')
+              .fourteen.wide.column
+                span {{komentarr.komentar}}
+            br
+          .ui.grid(id='markerTulisKomentar')
+            .sixteen.wide.column
+              a(href='#',onClick='event.preventDefault()',ng-hide='resultsKomentar.length === timeline.komentar',ng-click='limitKomentar=limitKomentar+3') Lihat komentar lainnya
         .ui.grid(style='background-color:#ecf0f1;')
           .two.wide.column
             img.ui.medium.image(src='{{foto}}')
           .fourteen.wide.column
-            textarea(onkeypress="tambahKomentar(event)",style='border-radius:1em;width:100%;resize:none;',placeholder='  Tulis komentar anda disini...')
+            textarea(ng-keypress="muatUlangKomentar($event)",onkeypress="tambahKomentar(event,$(this).attr('idKegiatan'),$(this).val(),$(this).attr('fotoPengguna'))",fotoPengguna='{{foto}}',id='textArea{{timeline.kegiatan}}',idKegiatan='{{timeline.kegiatan}}',style='border-radius:1em;width:100%;resize:none;',placeholder='  Tulis komentar anda disini...')
+
       br
     .ui.grid
       .sixteen.wide.column
@@ -103,6 +121,7 @@ block right-middle
   .ui.card
     #hidden-username(style='display:none') #{username}
     #hidden-access-token(style='display:none') #{access_token}
+    #hidden-pengguna(style='display:none') #{pengguna}
 
     .image
       img.ui.medium.image(src='{{foto}}')
@@ -117,3 +136,43 @@ block right-middle
       a(href='/member/siswa/pengaturan')
         i.setting.icon
         | Pengaturan
+  .ui.segment
+    a.grey-text(href='#')
+      i.trophy.icon
+      | Leaderboard
+    .ui.middle.aligned.divided.list.grey-text
+      .item(style='padding:1em;')
+        .content
+          .ui.grid
+            .four.wide.column
+              img.ui.medium.image(src='https://www.vccircle.com/wp-content/uploads/2017/03/default-profile.png')
+            .twelve.wide.column
+              span Asep, 13 poin
+      .item(style='padding:1em;')
+        .content
+          .ui.grid
+            .four.wide.column
+              img.ui.medium.image(src='https://www.vccircle.com/wp-content/uploads/2017/03/default-profile.png')
+            .twelve.wide.column
+              span Sinta, 10 poin
+      .item(style='padding:1em;')
+        .content
+          .ui.grid
+            .four.wide.column
+              img.ui.medium.image(src='https://www.vccircle.com/wp-content/uploads/2017/03/default-profile.png')
+            .twelve.wide.column
+              span Budi, 7 poin
+      .item(style='padding:1em;')
+       .content
+         .ui.grid
+           .four.wide.column
+             img.ui.medium.image(src='https://www.vccircle.com/wp-content/uploads/2017/03/default-profile.png')
+           .twelve.wide.column
+             span Ujang, 5 poin
+      .item(style='padding:1em;')
+        .content
+          .ui.grid
+            .four.wide.column
+              img.ui.medium.image(src='https://www.vccircle.com/wp-content/uploads/2017/03/default-profile.png')
+            .twelve.wide.column
+              span Cali, 4 poin
