@@ -12,6 +12,7 @@ html(lang='en')
     script(src='/javascripts/angular/dashboard.js')
     script(src='/dist/semantic.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/angular-moment/1.2.0/angular-moment.min.js')
     script(type='text/javascript', src='/DataTabel/media/js/jquery.dataTables.min.js')
     script(type='text/javascript', src='/javascripts/notify.min.js')
   body(ng-app='dashboardApp',ng-controller='controllerGetProfile')
@@ -66,7 +67,7 @@ html(lang='en')
           if (event.which == 13 || event.keyCode == 13) {//Kondisi ketika di enter
           //$('#containerKomentar'+reqKegiatan).append("<div class='ui grid'><div class='two wide column'><img src='"+fotoPengguna+"' class='ui medium image'/></div><div class='fourteen wide column'><span>"+reqKomentar+"</span></div></div>")
           $('#textArea'+reqKegiatan).val('')
-          $.post("http://localhost:3002/kegiatan/komentar/tambah",
+          $.post("http://apiportal.vidyanusa.id/kegiatan/komentar/tambah",
             {
                 kegiatan: reqKegiatan,
                 komentar: reqKomentar,
@@ -81,10 +82,17 @@ html(lang='en')
         }
       }
 
+      function highlightTextAreaKomentarPostingan(event,idTextArea){
+        event.preventDefault()
+        //console.log("id text areanya: "+idTextArea)
+        //$(idTextArea).transition('jiggle')
+        $("#"+idTextArea).transition('shake')        
+      }
+
       function sukaiKegiatan(event,reqKegiatan){
-          $("#kontainerIconSuka"+reqKegiatan).html("<i class='thumbs outline up icon'></i>Batal Suka")
+
           event.preventDefault()
-          $.post("http://localhost:3002/kegiatan/suka",
+          $.post("http://apiportal.vidyanusa.id/kegiatan/suka",
             {
                 kegiatan: reqKegiatan,
                 pengguna:$('#hidden-pengguna').text(),
@@ -108,6 +116,16 @@ html(lang='en')
                   closable : true
                 })
       })
+
+      function daftarPenyukaKegiatan(){
+        $('.ui.modal.daftar-penyuka-kegiatan')
+          .modal('show')
+          .modal('setting', 'blurring', true)
+          .modal('setting', 'closable', true)
+
+          $("#olDaftarPenyukaKegiatan").append("<li>sehat?</li>")
+      }
+
 
       $('#tambah-kelas').click(function(){
         $('.ui.modal.modal-tambah-kelas')

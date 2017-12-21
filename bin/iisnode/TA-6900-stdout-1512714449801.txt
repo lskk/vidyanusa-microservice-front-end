@@ -1,0 +1,6 @@
+[0mGET /javascripts/notify.min.js [32m200 [0m439.169 ms - 13780[0m
+[0mGET /stylesheets/custom-grid.css [32m200 [0m462.396 ms - 594[0m
+[0mGET /DataTabel/media/js/jquery.dataTables.min.js [32m200 [0m624.062 ms - 83268[0m
+[0mGET /javascripts/angular/dashboard.js [32m200 [0m651.855 ms - 35027[0m
+[0mGET /member/{{timeline.foto}} [36m302 [0m13.264 ms - 23[0m
+[0mGET / [36m302 [0m4.203 ms - 32[0m

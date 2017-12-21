@@ -2,8 +2,15 @@ const copyright = "© 2017 Vidyanusa Institut Teknologi Bandung"
 
 //Pengaturan REST API
 var restClient = require('node-rest-client').Client;
-var rClient = new restClient();
-
+//var rClient = new restClient();
+var rClient = new restClient({
+ proxy:{
+   host:Global.proxy_host,
+   port: Global.proxy_port,
+   user:Global.proxy_user,
+   password:Global.proxy_password
+       }
+});
 
 //Import library pengatur prosedur
 var async = require('async')
@@ -18,9 +25,9 @@ var FTP = require('ftp')
 var fs = require('fs')
 
 var connectionProperties = {
-    host: "",
-    user: "",
-    password: ""
+  host: Global.ftp_host,
+  user: Global.ftp_user,
+  password: Global.ftp_password
 };
 
 //Variable Global API yang digunakan

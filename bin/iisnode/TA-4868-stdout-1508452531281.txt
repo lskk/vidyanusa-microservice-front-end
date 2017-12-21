@@ -1,3 +1,0 @@
-[0mGET /member/dashboard [32m200 [0m895.969 ms - 8286[0m
-[0mGET /member/dashboard [32m200 [0m1458.718 ms - 8286[0m
-[0mGET /member/dashboard [32m200 [0m1283.858 ms - 8286[0m

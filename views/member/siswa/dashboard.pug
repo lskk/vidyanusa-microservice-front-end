@@ -60,10 +60,10 @@ block main-middle
       .ui.segment.grey-text
         .ui.grid
           .two.wide.column
-            a(href='http://portofolio.vidyanusa.id/{{timeline.username}}')
+            a(href='http://portofolio.vidyanusa.id/{{timeline.username}}',target='_blank')
               img.ui.medium.image(src='{{timeline.foto}}')
           .four.wide.column(style='margin-left:-1.5em;')
-            a(href='http://portofolio.vidyanusa.id/{{timeline.username}}')
+            a(href='http://portofolio.vidyanusa.id/{{timeline.username}}',target='_blank')
               b {{timeline.username}}
             br
             | {{timeline.created_at}}
@@ -84,17 +84,21 @@ block main-middle
             img.ui.large.image(src='{{timeline.file_berkas}}')
         .ui.grid
           .four.wide.column
-            a(href="#",ng-click="muatUlangKomentarSuka()",onclick="sukaiKegiatan(event,$(this).attr('idKegiatanSuka'))",idKegiatanSuka='{{timeline.kegiatan}}',id="kontainerIconSuka{{timeline.kegiatan}}")
+            a(href="#",ng-click="muatUlangKomentarSuka()",onclick="$(this).children().transition('jiggle');sukaiKegiatan(event,$(this).attr('idKegiatanSuka'))",idKegiatanSuka='{{timeline.kegiatan}}',id="kontainerIconSuka{{timeline.kegiatan}}")
               i.thumbs.outline.up.icon
               | Suka
           .four.wide.column
-            a(href="#textArea{{timeline.kegiatan}}")
+            a(href="#",onclick="highlightTextAreaKomentarPostingan(event,$(this).attr('textAreaId'))",textAreaId='textArea{{timeline.kegiatan}}')
               i.comment.outline.icon
               | Komentar
           .two.wide.column
         .ui.grid
-          .two.wide.column {{timeline.suka.length}} suka
-          .fourteen.wide.column {{timeline.komentar.length}} komentar
+          .two.wide.column(ng-controller="controllerDaftarPenyuka")
+            a(href="#",onClick="event.preventDefault();",kegiatan='{{timeline.kegiatan}}') {{timeline.suka.length}} suka
+            //.
+              a(href="#",onClick="event.preventDefault();daftarPenyukaKegiatan();",ng-click="daftarPenyukaQuery($event)",kegiatan='{{timeline.kegiatan}}') {{timeline.suka.length}} suka
+          .fourteen.wide.column
+            a(href="#",onClick="event.preventDefault();") {{timeline.komentar.length}} komentar
 
         .ui.grid(ng-init='limitKomentar=2')
           span(ng-repeat="komentarr in timeline.komentar | limitTo: limitKomentar as resultsKomentar",id='containerKomentar{{timeline.kegiatan}}')
@@ -102,17 +106,27 @@ block main-middle
               .two.wide.column
                 img.ui.medium.image(src='{{komentarr.pengguna.profil.foto}}')
               .fourteen.wide.column
+                a(href='http://portofolio.vidyanusa.id/{{komentarr.pengguna.profil.username}}',target='_blank') {{komentarr.pengguna.profil.username}}
+                br
                 span {{komentarr.komentar}}
+                br
+                span(style="color:#bdc3c7;") {{komentarr.created_at|date}}
+
             br
           .ui.grid(id='markerTulisKomentar')
             .sixteen.wide.column
-              a(href='#',onClick='event.preventDefault()',ng-hide='resultsKomentar.length === timeline.komentar',ng-click='limitKomentar=limitKomentar+3') Lihat komentar lainnya
+              a(href='#',onClick='event.preventDefault();$(this).css("display","none");',ng-hide='resultsKomentar.length === timeline.komentar',ng-click='limitKomentar=resultsKomentar')
+                span(ng-if='timeline.komentar.length >2') Lihat semua komentar
         .ui.grid(style='background-color:#ecf0f1;')
           .two.wide.column
             img.ui.medium.image(src='{{foto}}')
           .fourteen.wide.column
             textarea(ng-keypress="muatUlangKomentar($event)",onkeypress="tambahKomentar(event,$(this).attr('idKegiatan'),$(this).val(),$(this).attr('fotoPengguna'))",fotoPengguna='{{foto}}',id='textArea{{timeline.kegiatan}}',idKegiatan='{{timeline.kegiatan}}',style='border-radius:1em;width:100%;resize:none;',placeholder='  Tulis komentar anda disini...')
-
+        .ui.modal.daftar-penyuka-kegiatan
+          .header Daftar Penyuka
+          .scrolling.content(ng-controller="controllerDaftarPenyuka")
+            ol
+              li suka
       br
     .ui.grid
       .sixteen.wide.column
@@ -131,6 +145,10 @@ block right-middle
         span.date {{nama_lengkap}}
       .description
         | {{bio}}
+      .meta
+        a.grey-text(href='#')
+          i.star.icon(style='color:orange')
+          | 2 Poin
 
     .extra.content
       a(href='/member/siswa/pengaturan')
@@ -138,7 +156,7 @@ block right-middle
         | Pengaturan
   .ui.segment
     a.grey-text(href='#')
-      i.trophy.icon
+      i.trophy.icon(style='color:gold')
       | Leaderboard
     .ui.middle.aligned.divided.list.grey-text
       .item(style='padding:1em;')

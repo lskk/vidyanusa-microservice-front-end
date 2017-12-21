@@ -1,9 +1,17 @@
 const copyright = "© 2017 Vidyanusa Institut Teknologi Bandung"
+const Global = require('../global.json');
 
 //Import untuk REST API
 var restClient = require('node-rest-client').Client;
-var rClient = new restClient();
-
+//var rClient = new restClient();
+var rClient = new restClient({
+ proxy:{
+           host:Global.proxy_host,
+           port: Global.proxy_port,
+           user:Global.proxy_user,
+           password:Global.proxy_password
+       }
+});
 
 //Pengaturan FTP
 var Client = require('ftp')
@@ -17,9 +25,9 @@ var fs = require('fs')
 var base_api_general_url = 'http://apigeneral.vidyanusa.id';
 
 var connectionProperties = {
-    host: "",
-    user: "",
-    password: ""
+    host: Global.ftp_host,
+    user: Global.ftp_user,
+    password: Global.ftp_password
 };
 
 var async = require('async')

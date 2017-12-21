@@ -1,0 +1,1 @@
+[0mGET /dashboard [36m302 [0m57.595 ms - 78[0m

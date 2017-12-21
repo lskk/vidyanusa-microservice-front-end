@@ -1,0 +1,4 @@
+[0mGET /images/vidyanusa.png [32m200 [0m529.784 ms - 29184[0m
+[0mGET /images/product-carousel-1.png [32m200 [0m479.455 ms - 174332[0m
+[0mGET /images/product-carousel-2.png [32m200 [0m484.087 ms - 424671[0m
+[0mPOST /masuk [36m302 [0m2350.052 ms - 64[0m
