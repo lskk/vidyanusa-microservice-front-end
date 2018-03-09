@@ -1,0 +1,6 @@
+[0mGET /member/dashboard [32m200 [0m1219.416 ms - 15072[0m
+[0mGET /member/dashboard [32m200 [0m1986.899 ms - 15072[0m
+[0mGET /member/dashboard [32m200 [0m1777.255 ms - 15072[0m
+[0mGET /member/siswa/{{leaderboard.foto}} [36m302 [0m2093.857 ms - 23[0m
+[0mGET /member/siswa/absensi [32m200 [0m1053.039 ms - 10744[0m
+[0mGET /member/siswa/{{activity.file_berkas}} [36m302 [0m2095.687 ms - 23[0m

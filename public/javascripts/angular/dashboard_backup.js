@@ -5,27 +5,13 @@ var angularModuleFilterFromNow = angular.module('filterDateFromNow',[]).filter("
     return moment(new Date(date)).fromNow();
   };
 });
-
 var angularModule = angular.module('dashboardApp',['angularMoment','filterDateFromNow'])
 const Global = {
-  "api_global" : "http://apigeneraldev.vidyanusa.id",
-  "api_portal" : "http://apiportaldev.vidyanusa.id"
+  "api_global" : "http://apigeneral.vidyanusa.id",
+  "api_portal" : "http://api.vidyanusa.id",
+  "devel_api_global" : "http://localhost:3001",
+  "devel_api_portal" : "http://localhost:3002"
 };
-
-angularModule.controller('exportTableToXls', function($scope) {
-
-    $scope.exportExcel = function($namaDaftar) {
-
-        var blob = new Blob([document.getElementById('exportableToExcel').innerHTML], {
-            type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8"
-        });
-
-        var fileName = "Daftar"+$namaDaftar+".xls"
-        saveAs(blob, fileName);
-
-    }
-
-})
 
 angularModule.controller('controllerGetEmail', function($scope, $http, $window){
     var pengguna = $('#hidden-pengguna').text()
@@ -34,7 +20,7 @@ angularModule.controller('controllerGetEmail', function($scope, $http, $window){
     //Request data email
     var reqEmail = {
         method: 'POST',
-        url: Global.api_global+'/ambil_email',
+        url: Global.devel_api_global+'/ambil_email',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
@@ -74,7 +60,7 @@ angularModule.controller('controllerGetProfile', function($scope, $http, $window
   //Request data profil
   var reqProfil = {
              method: 'POST',
-             url: Global.api_global+'/profil',
+             url: Global.devel_api_global+'/profil',
              headers: {
                'Content-Type': 'application/x-www-form-urlencoded'
              },
@@ -102,7 +88,7 @@ angularModule.controller('controllerGetProfile', function($scope, $http, $window
       $scope.bio = response.data.data[0].profil.bio
       $scope.user_id = response.data.data[0]._id
     }else{
-      window.location = 'http://vidyanusa.id/session_tidak_berlaku' //Diarahkan kehalaman keluar/logout
+      window.location = 'http://localhost:3000/session_tidak_berlaku' //Diarahkan kehalaman keluar/logout
     }
 
 
@@ -122,7 +108,7 @@ angularModule.controller('controllerGetProfileKelasSiswa', function($scope, $htt
   //Request data profil
   var reqProfil = {
              method: 'POST',
-             url: Global.api_global+'/profil/siswa',
+             url: Global.devel_api_global+'/profil/siswa',
              headers: {
                'Content-Type': 'application/x-www-form-urlencoded'
              },
@@ -152,7 +138,7 @@ angularModule.controller('controllerGetProfilePrestasi', function($scope, $http,
   //Request data profil
   var reqProfil = {
              method: 'POST',
-             url: Global.api_global+'/profil/siswa',
+             url: Global.devel_api_global+'/profil/siswa',
              headers: {
                'Content-Type': 'application/x-www-form-urlencoded'
              },
@@ -184,7 +170,7 @@ angularModule.controller('controllerGetProfilePengalamanOrganisasi', function($s
   //Request data profil
   var reqProfil = {
              method: 'POST',
-             url: Global.api_global+'/profil/siswa',
+             url: Global.devel_api_global+'/profil/siswa',
              headers: {
                'Content-Type': 'application/x-www-form-urlencoded'
              },
@@ -213,7 +199,7 @@ angularModule.controller('controllerGetProfileMinatBakat', function($scope, $htt
   //Request data profil
   var reqProfil = {
              method: 'POST',
-             url: Global.api_global+'/profil/siswa',
+             url: Global.devel_api_global+'/profil/siswa',
              headers: {
                'Content-Type': 'application/x-www-form-urlencoded'
              },
@@ -243,7 +229,7 @@ angularModule.controller('controllerGetProfileSertifikat', function($scope, $htt
   //Request data profil
   var reqProfil = {
              method: 'POST',
-             url: Global.api_global+'/profil/siswa',
+             url: Global.devel_api_global+'/profil/siswa',
              headers: {
                'Content-Type': 'application/x-www-form-urlencoded'
              },
@@ -273,7 +259,7 @@ angularModule.controller('controllerGetProfileHobi', function($scope, $http, $wi
   //Request data profil
   var reqProfil = {
              method: 'POST',
-             url: Global.api_global+'/profil/siswa',
+             url: Global.devel_api_global+'/profil/siswa',
              headers: {
                'Content-Type': 'application/x-www-form-urlencoded'
              },
@@ -303,7 +289,7 @@ angularModule.controller('controllerGetProfileBahasa', function($scope, $http, $
   //Request data profil
   var reqProfil = {
              method: 'POST',
-             url: Global.api_global+'/profil/siswa',
+             url: Global.devel_api_global+'/profil/siswa',
              headers: {
                'Content-Type': 'application/x-www-form-urlencoded'
              },
@@ -333,7 +319,7 @@ angularModule.controller('controllerGetProfileKarya', function($scope, $http, $w
   //Request data profil
   var reqProfil = {
              method: 'POST',
-             url: Global.api_global+'/profil/siswa',
+             url: Global.devel_api_global+'/profil/siswa',
              headers: {
                'Content-Type': 'application/x-www-form-urlencoded'
              },
@@ -364,7 +350,7 @@ angularModule.controller('controllerGetProfileMedsos', function($scope, $http, $
   //Request data profil
   var reqProfil = {
              method: 'POST',
-             url: Global.api_global+'/profil/siswa',
+             url: Global.devel_api_global+'/profil/siswa',
              headers: {
                'Content-Type': 'application/x-www-form-urlencoded'
              },
@@ -398,7 +384,7 @@ angularModule.controller('controllerGetProfileSiswa', function($scope, $http, $w
   //Request data profil
   var reqProfil = {
              method: 'POST',
-             url: Global.api_global+'/profil/siswa',
+             url: Global.devel_api_global+'/profil/siswa',
              headers: {
                'Content-Type': 'application/x-www-form-urlencoded'
              },
@@ -426,7 +412,7 @@ angularModule.controller('controllerAllMapel', function($scope, $http, $window){
   //Request daftar mapel
   var reqMapel = {
              method: 'GET',
-             url: Global.api_global+'/mapel',
+             url: Global.devel_api_global+'/mapel',
              headers: {
                'Content-Type': 'application/x-www-form-urlencoded'
              },
@@ -457,7 +443,7 @@ angularModule.controller('controllerAllMapel', function($scope, $http, $window){
 
     var reqMateri = {
                method: 'POST',
-               url: Global.api_global+'/mapel/materi',
+               url: Global.devel_api_global+'/mapel/materi',
                headers: {
                  'Content-Type': 'application/x-www-form-urlencoded'
                },
@@ -486,7 +472,7 @@ angularModule.controller('controllerAllGuru', function($scope, $http, $window){
   //Request daftar guru
   var reqGuru = {
              method: 'POST',
-             url: Global.api_global+'/pengguna/guru/sekolah',
+             url: Global.devel_api_global+'/pengguna/guru/sekolah',
              headers: {
                'Content-Type': 'application/x-www-form-urlencoded'
              },
@@ -514,7 +500,7 @@ angularModule.controller('controllerAllSiswa', function($scope, $http, $window){
   //Request daftar siswa
   var reqSiswa = {
              method: 'POST',
-             url: Global.api_global+'/pengguna/siswa/sekolah',
+             url: Global.devel_api_global+'/pengguna/siswa/sekolah',
              headers: {
                'Content-Type': 'application/x-www-form-urlencoded'
              },
@@ -543,7 +529,7 @@ angularModule.controller('controllerAllKategoriKegiatan', function($scope, $http
   //Request daftar mapel
   var reqMapel = {
              method: 'POST',
-             url: Global.api_portal+'/kegiatan/kategori',
+             url: Global.devel_api_portal+'/kegiatan/kategori',
              headers: {
                'Content-Type': 'application/x-www-form-urlencoded'
              },
@@ -570,7 +556,7 @@ angularModule.controller('controllerLeaderboard', function($scope, $http, $windo
   //Request leaderboard
   var reqLeaderboard = {
              method: 'POST',
-             url: Global.api_portal+'/gamifikasi/leaderboard',
+             url: Global.devel_api_portal+'/gamifikasi/leaderboard',
              headers: {
                'Content-Type': 'application/x-www-form-urlencoded'
              },
@@ -601,7 +587,7 @@ angularModule.controller('controllerPencapaianPengguna', function($scope, $http,
 
     var reqData = {
                method: 'POST',
-               url: Global.api_portal+'/gamifikasi/jumlah_kegiatan',
+               url: Global.devel_api_portal+'/gamifikasi/jumlah_kegiatan',
                headers: {
                  'Content-Type': 'application/x-www-form-urlencoded'
                },
@@ -634,7 +620,7 @@ angularModule.controller('controllerPoinPerPengguna', function($scope, $http, $w
   //Request leaderboard
   var reqPoinPerPengguna = {
              method: 'POST',
-             url: Global.api_portal+'/gamifikasi/poin_per_pengguna',
+             url: Global.devel_api_portal+'/gamifikasi/poin_per_pengguna',
              headers: {
                'Content-Type': 'application/x-www-form-urlencoded'
              },
@@ -665,7 +651,7 @@ angularModule.controller('controllerGetTimeline', function($scope, $http, $windo
   //Request data timeline
   var reqTimeline = {
              method: 'POST',
-             url: Global.api_portal+'/kegiatan/daftar_semua',
+             url: Global.devel_api_portal+'/kegiatan/daftar_semua',
              headers: {
                'Content-Type': 'application/x-www-form-urlencoded'
              },
@@ -778,7 +764,7 @@ angularModule.controller('controllerDaftarPenyuka', function($scope, $http){
     //console.log("kegiatannya: "+idKegiatan)
     var reqPenyukaKegiatan = {
                method: 'POST',
-               url: Global.api_portal+'/kegiatan/suka/daftar',
+               url: Global.devel_api_portal+'/kegiatan/suka/daftar',
                headers: {
                  'Content-Type': 'application/x-www-form-urlencoded'
                },
@@ -816,14 +802,14 @@ angularModule.controller('controllerDaftarPenyuka', function($scope, $http){
   };
 })
 
-angularModule.controller('controllerDaftarLencana',  function($scope, $http){
+angularModule.controller('controllerDaftarLencana', function($scope, $http){
   var token = $('#hidden-access-token').text()
   var pengguna = $('#hidden-pengguna').text()
 
   //Request lencana
   var reqLencana = {
              method: 'POST',
-             url: Global.api_portal+'/gamifikasi/lencana',
+             url: Global.devel_api_portal+'/gamifikasi/lencana',
              headers: {
                'Content-Type': 'application/x-www-form-urlencoded'
              },
@@ -834,16 +820,44 @@ angularModule.controller('controllerDaftarLencana',  function($scope, $http){
                   return str.join("&");
              },
              data: {
-                     access_token: token,
-                     pengguna: pengguna
+                     access_token: token
                    }
             }
   $http(reqLencana).then(function(response){
-
     $scope.daftarLencana = response.data.data
   }, function(data){
   });
 
+  $scope.angka = function(pengguna,kategori) {
+    var access_token = $('#hidden-access-token').text()
+    var reqDataPencapaian = {
+               method: 'POST',
+               url: Global.devel_api_portal+'/gamifikasi/jumlah_kegiatan',
+               headers: {
+                 'Content-Type': 'application/x-www-form-urlencoded'
+               },
+               transformRequest: function(obj) {
+                    var str = [];
+                    for(var p in obj)
+                    str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                    return str.join("&");
+               },
+               data: {
+                       access_token: access_token,
+                       pengguna: pengguna,
+                       kategori: kategori
+                     }
+              }
+
+    $http(reqDataPencapaian).then(function(response){
+      jumlah =  response.data.data
+      //console.log("Pencapaian pengguna: "+)
+
+    })
+
+    return 1
+    //return pengguna
+  }
 })
 
 angularModule.controller('controllerKegiatanku', function($scope, $http, $window){
@@ -854,7 +868,7 @@ angularModule.controller('controllerKegiatanku', function($scope, $http, $window
   //Request data kegiatanku
   var reqKegiatanku = {
              method: 'POST',
-             url: Global.api_portal+'/kegiatan/daftar_per_pengguna',
+             url: Global.devel_api_portal+'/kegiatan/daftar_per_pengguna',
              headers: {
                'Content-Type': 'application/x-www-form-urlencoded'
              },
@@ -897,7 +911,7 @@ angularModule.controller('controllerKegiatanku', function($scope, $http, $window
   $scope.ubahStatusKegiatan = function(kegiatan){
     var reqKegiatanku = {
                method: 'POST',
-               url: Global.api_portal+'/kegiatan/status/terima',
+               url: Global.devel_api_portal+'/kegiatan/status/terima',
                headers: {
                  'Content-Type': 'application/x-www-form-urlencoded'
                },
@@ -922,7 +936,7 @@ angularModule.controller('controllerKegiatanku', function($scope, $http, $window
         //Request data kegiatanku
         var reqKegiatanku = {
                    method: 'POST',
-                   url: Global.api_portal+'/kegiatan/daftar_per_pengguna',
+                   url: Global.devel_api_portal+'/kegiatan/daftar_per_pengguna',
                    headers: {
                      'Content-Type': 'application/x-www-form-urlencoded'
                    },
@@ -979,7 +993,7 @@ angularModule.controller('controllerGetAbsensi', function($scope, $http, $window
   //Request data timeline
   var reqAbsensi = {
              method: 'POST',
-             url: Global.api_portal+'/absensi/daftar_per_pengguna',
+             url: Global.devel_api_portal+'/absensi/daftar_per_pengguna',
              headers: {
                'Content-Type': 'application/x-www-form-urlencoded'
              },
@@ -1028,7 +1042,7 @@ angularModule.controller('controllerGetKelas', function($scope, $http, $window){
   //Request daftar kelas
   var reqKelas = {
              method: 'POST',
-             url: Global.api_global+'/daftar_kelas',
+             url: Global.devel_api_global+'/daftar_kelas',
              headers: {
                'Content-Type': 'application/x-www-form-urlencoded'
              },
@@ -1063,7 +1077,7 @@ angularModule.controller('controllerGetSiswaDalamKelas', function($scope, $http,
   //Request daftar siswa dalam kelas
   var reqKelas = {
              method: 'POST',
-             url: Global.api_global+'/daftar_kelas/siswa',
+             url: Global.devel_api_global+'/daftar_kelas/siswa',
              headers: {
                'Content-Type': 'application/x-www-form-urlencoded'
              },
@@ -1080,7 +1094,7 @@ angularModule.controller('controllerGetSiswaDalamKelas', function($scope, $http,
             }
 
   $http(reqKelas).then(function(response){
-    //console.log("Banyak siswa dalam kelas: "+response.data.data);
+
     $scope.students = response.data.data
     // $scope.nama_lengkap = response.data.data[0].profil.nama_lengkap
     // $scope.foto = response.data.data[0].profil.foto
@@ -1090,48 +1104,13 @@ angularModule.controller('controllerGetSiswaDalamKelas', function($scope, $http,
   });
 })
 
-angularModule.controller('controllerAnalisisSikapDalamKelas', function($scope, $http, $window){
-
-    var access_token = $('#hidden-access-token').text()
-    var id_kelas = $('#hidden-id-kelas').text()
-
-    //Request daftar siswa dalam kelas
-    var reqKelas = {
-        method: 'POST',
-        url: Global.api_portal+'/gamifikasi/analisis_sikap/kelas',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        transformRequest: function(obj) {
-            var str = [];
-            for(var p in obj)
-                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-            return str.join("&");
-        },
-        data: {
-            access_token: access_token,
-            kelas: id_kelas
-        }
-    }
-
-    $http(reqKelas).then(function(response){
-        //console.log("Banyak siswa dalam kelas: "+response.data.data);
-        $scope.analisis = response.data.data
-        // $scope.nama_lengkap = response.data.data[0].profil.nama_lengkap
-        // $scope.foto = response.data.data[0].profil.foto
-        // $scope.bio = response.data.data[0].profil.bio
-    }, function(data){
-        console.log(data)
-    });
-})
-
 angularModule.controller('controllerGetKelasPunyaGuru', function($scope, $http, $window){
   var access_token = $('#hidden-access-token').text()
   var id_pengguna = $('#hidden-access-user-id').text()
   //Request daftar kelas berdasarkan guru
   var reqKelas = {
              method: 'POST',
-             url: Global.api_global+'/daftar_kelas/guru',
+             url: Global.devel_api_global+'/daftar_kelas/guru',
              headers: {
                'Content-Type': 'application/x-www-form-urlencoded'
              },
@@ -1166,7 +1145,7 @@ angularModule.controller('controllerGetDetailKelas', function($scope, $http, $wi
   //Request detail kelas
   var reqKelas = {
              method: 'POST',
-             url: Global.api_global+'/daftar_kelas/detail',
+             url: Global.devel_api_global+'/daftar_kelas/detail',
              headers: {
                'Content-Type': 'application/x-www-form-urlencoded'
              },

@@ -29,21 +29,111 @@ block main-middle
     .ui.segment.grey-text
       .ui.red.message
         span= messages.pesan
-  .ui.segment.grey-text(align='center')
-    | Detail Kelas
   .ui.segment.grey-text
-    .sixteen.wide.column(ng-controller='controllerGetSiswaDalamKelas')
-      table.ui.very.basic.collapsing.table
-        tr
-          th Foto profil
-          th Username
-          th Nama Lengkap
-        tr(ng-repeat='student in students')
-          td
-            img.ui.tiny.image(src='{{student.profil.foto}}')
-          td {{student.profil.username}}
-          td {{student.profil.nama_lengkap}}
+    .ui.top.attached.tabular.menu
+      a.item.active(data-tab='first') Daftar Siswa
+      a.item(data-tab='second') Analisis Sikap
 
+    .ui.bottom.attached.tab.segment.active(data-tab='first')
+      .sixteen.wide.column
+        form.ui.form
+          .field
+            input(type='text',placeholder='Tulis pencarian berdasarkan username atau nama lengkap',ng-model='pencarian',style='width:100%;')
+      br
+      br
+      .sixteen.wide.column(ng-controller='controllerGetSiswaDalamKelas')
+        table.ui.very.basic.collapsing.table
+          tr
+            th Foto profil
+            th Username
+            th Nama Lengkap
+            th
+          tr(ng-repeat='student in students | filter:pencarian')
+            td
+              img.ui.tiny.image(src='{{student.profil.foto}}')
+            td {{student.profil.username}}
+            td {{student.profil.nama_lengkap}}
+            td
+              a(href='/member/guru/kelas/siswa_detail_unggahan/{{student._id}}',class='medium ui button button-submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;') Lihat Unggahan
+    .ui.bottom.attached.tab.segment(data-tab='second')
+      .sixteen.wide.column(ng-controller='controllerAnalisisSikapDalamKelas')
+        span(ng-controller='exportTableToXls',)
+          a(href="#",ng-click="exportExcel('Hasil Analisis Penilai Sikap Siswa')")
+            | Unduh hasil analisis
+        table.ui.very.basic.collapsing.table(style="width:100%;")
+          tr
+            th No
+            th Username
+            th Nama Siswa
+            th Nilai
+
+          tr(ng-repeat='a in analisis')
+            td {{$index+1}}
+            td {{a.username}}
+            td {{a.nama_lengkap}}
+            td {{a.nilai_sikap}}
+
+
+
+        span#exportableToExcel(style='display:none')
+          table
+            tr
+              th No
+              th Username
+              th Nama Siswa
+              th Nilai
+
+            tr(ng-repeat='a in analisis')
+              td {{$index+1}}
+              td {{a.username}}
+              td {{a.nama_lengkap}}
+              td {{a.nilai_sikap}}
+
+
+
+  //.
+    .ui.segment.grey-text(align='center')
+      | Analisis Sikap
+    .ui.segment.grey-text
+      .sixteen.wide.column(ng-controller='controllerGetSiswaDalamKelas')
+        table.ui.very.basic.collapsing.table(style="width:100%;")
+          tr
+            th No
+            th Username
+            th Nama Siswa
+            th Nilai
+            th
+          tr(ng-repeat='student in students')
+            td {{$index+1}}
+            td {{student.profil.username}}
+            td {{student.profil.nama_lengkap}}
+            td SB
+            td
+              a(href="#") Detail
+
+    .ui.segment.grey-text(align='center')
+      | Daftar Siswa
+    .ui.segment.grey-text
+      .sixteen.wide.column
+        form.ui.form
+          .field
+            input(type='text',placeholder='Tulis pencarian berdasarkan username atau nama lengkap',ng-model='pencarian',style='width:100%;')
+      br
+      br
+      .sixteen.wide.column(ng-controller='controllerGetSiswaDalamKelas')
+        table.ui.very.basic.collapsing.table
+          tr
+            th Foto profil
+            th Username
+            th Nama Lengkap
+            th
+          tr(ng-repeat='student in students | filter:pencarian')
+            td
+              img.ui.tiny.image(src='{{student.profil.foto}}')
+            td {{student.profil.username}}
+            td {{student.profil.nama_lengkap}}
+            td
+              a(href='/member/guru/kelas/siswa_detail_unggahan/{{student._id}}',class='medium ui button button-submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;') Lihat Unggahan
 
 
 block right-middle

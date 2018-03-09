@@ -1,0 +1,82 @@
+extends templates/template1
+
+block navigasi
+  a(class='item primary-color',href='/')
+    .text.grey-text
+      | Dashboard
+  a(class='item primary-color',href='/member/guru/kelas')
+    .text(style='color:#4183C4;')
+      | Kelas
+
+
+  .right.menu
+    a(class='item grey-text',href='#')
+      i.alarm.outline.icon.medium.grey-text
+    a.item.ui.dropdown
+      .text.grey-text
+        | #{username}
+      i.dropdown.icon
+      .menu
+        .item.nav-pengaturan
+          i.setting.icon.grey-text
+          span.grey-text Pengaturan
+        .item.nav-keluar
+          i.sign.out.icon.grey-text
+          span.grey-text Keluar
+
+block main-middle
+  if (messages.pesan)
+    .ui.segment.grey-text
+      .ui.red.message
+        span= messages.pesan
+  .ui.segment.grey-text(align='center')
+    | Detail Unggahan
+  .ui.segment.grey-text
+    .sixteen.wide.column
+      form.ui.form
+        .field
+          input(type='text',placeholder='Tulis pencarian berdasarkan judul dan kategori kegiatan',ng-model='pencarian',style='width:100%;')
+    br
+    .sixteen.wide.column(ng-controller='controllerKegiatanku',ng-init='limit=3')
+      span(ng-repeat="activity in activities | orderBy : '-activity.created_at'| filter:pencarian| limitTo: limit as results")
+        .eight.wide.column
+          .ui.segment.grey-text
+            img.ui.large.image(src='{{activity.file_berkas}}')
+            br
+            b {{activity.judul}}
+            br
+            span # {{activity.nama_kategori}}
+            br
+            br
+            span {{activity.created_at}}
+            br
+            br
+            span(ng-if="activity.status == 0")
+              button(ng-click="ubahStatusKegiatan(activity.id)",type='button',class='medium ui button button-submit',style='background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;') Terima
+
+        br
+      .ui.grid
+        .sixteen.wide.column
+          button(ng-hide='results.length === timelines.length',ng-click='limit=limit+3',style='width:100%;background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;',class='large ui button button-submit') Lihat lebih banyak lagi
+
+block right-middle
+  .ui.card
+    #hidden-username(style='display:none') #{username}
+    #hidden-pengguna(style='display:none') #{id_siswa}
+    #hidden-access-token(style='display:none') #{access_token}
+
+    .image
+      img(src='{{foto}}')
+    .content
+      a.header {{username}}
+      .meta
+        span.date {{nama_lengkap}}
+      .description
+        | {{bio}}
+
+    .extra.content
+      a(href='/pengaturan')
+        i.setting.icon
+        | Pengaturan
+
+block modal

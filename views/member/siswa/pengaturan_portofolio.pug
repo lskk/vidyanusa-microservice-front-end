@@ -13,9 +13,15 @@ block navigasi
 
 
   .right.menu
-    a(class='item grey-text',href='#')
-      i.alarm.outline.icon.medium.grey-text
+    //.
+      a(class='item grey-text',href='#')
+        i.alarm.outline.icon.medium.grey-text
+    a(class='item grey-text',href='/member/gamifikasi/pencapaian')
+      i.trophy.icon.grey-text
+      .text.grey-text
+        | Pencapaian
     a.item.ui.dropdown
+      i.user.icon.grey-text
       .text.grey-text
         | #{username}
       i.dropdown.icon
@@ -143,7 +149,7 @@ block right-middle
   .ui.card
     #hidden-username(style='display:none') #{username}
     #hidden-access-token(style='display:none') #{access_token}
-    #hidden-user-id(style='display:none') #{user_id}
+    #hidden-pengguna(style='display:none') #{user_id}
     .image
       img(src='{{foto}}')
     .content
@@ -152,7 +158,10 @@ block right-middle
         span.date {{nama_lengkap}}
       .description
         | {{bio}}
-
+      .meta(ng-controller= "controllerPoinPerPengguna")
+        a.grey-text(href='#')
+          i.star.icon(style='color:orange')
+          | {{poinPengguna}} Poin
     .extra.content
       a(href='/member/siswa/pengaturan')
         i.id.setting.icon
@@ -167,7 +176,23 @@ block right-middle
       a#ganti-foto-profil(href='#')
         i.id.badge.icon
         | Ubah foto profil
-
+  .ui.segment
+    a.grey-text(href='#')
+      i.trophy.icon(style='color:gold')
+      | Leaderboard
+    .ui.middle.aligned.divided.list.grey-text
+      .item(style='padding:1em;')
+        .content(ng-controller="controllerLeaderboard")
+          .ui.grid(ng-repeat = "leaderboard in leaderboards | orderBy: 'poin':true | limitTo:10 ")
+            .six.wide.column
+              | # {{$index + 1}}
+              img.ui.mini.image(src='{{leaderboard.foto}}',style="float:right;")
+            .ten.wide.column
+              span
+                a(href='http://portofolio.vidyanusa.id/{{leaderboard.username}}',target='_blank') {{leaderboard.username}}
+                br
+                i.star.icon(style='color:orange')
+                |{{leaderboard.poin}} poin
 
 
 block modal

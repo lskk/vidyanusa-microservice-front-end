@@ -1,0 +1,4 @@
+[0mGET /dashboard [36m302 [0m376.531 ms - 39[0m
+[0mGET /dashboard [36m302 [0m601.437 ms - 39[0m
+[0mGET /dashboard [36m302 [0m605.699 ms - 39[0m
+[0mGET /dashboard [36m302 [0m801.383 ms - 39[0m

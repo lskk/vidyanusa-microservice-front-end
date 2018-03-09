@@ -1,4 +1,4 @@
-extends templates/template1
+extends ../siswa/templates/template1
 
 block navigasi
   a(class='item primary-color',href='/')
@@ -7,8 +7,8 @@ block navigasi
   a(class='item primary-color',href='/member/siswa/kegiatanku')
     .text.grey-text
       | Kegiatanku
-  a(class='item primary-color',href='/member/siswa/absensi',style='color:#4183C4;')
-    .text
+  a(class='item primary-color',href='/member/siswa/absensi')
+    .text.grey-text
       | Absensi
 
 
@@ -16,9 +16,9 @@ block navigasi
     //.
       a(class='item grey-text',href='#')
         i.alarm.outline.icon.medium.grey-text
-    a(class='item grey-text',href='/member/gamifikasi/pencapaian')
-      i.trophy.icon.grey-text
-      .text.grey-text
+    a(class='item grey-text',href='#')
+      i.trophy.icon.grey-text(style='color:#4183C4;')
+      .text.grey-text(style='color:#4183C4;')
         | Pencapaian
     a.item.ui.dropdown
       i.user.icon.grey-text
@@ -38,33 +38,18 @@ block main-middle
     .ui.segment.grey-text
       .ui.red.message
         span= messages.pesan
-  .ui.segment.grey-text(align='center') Absensi
-  .ui.segment.grey-text(align='center')
-    table.ui.sortable.celled.table(ng-controller='controllerGetAbsensi')
-     thead
-      tr
-        th.sorted.descending Tanggal
-        th Jam Masuk
-        th Lokasi
-        th Keterangan
-     tbody
-     tr(ng-repeat='contact in paraAbsensi')
-         td {{contact.tanggal}}
-         td {{contact.jam}}
-         td {{contact.lokasi1}} <-> {{contact.lokasi2}}
-         td {{contact.keterangan}}
-     tfoot
-      tr
-       th(colspan='4')
-        .ui.right.floated.pagination.menu
-         a.icon.item
-          i.left.chevron.icon
-         a.item 1
-         a.item 2
-         a.item 3
-         a.item 4
-         a.icon.item
-          i.right.chevron.icon
+  .ui.segment.grey-text(align='center') Pencapaian
+  .ui.segment.grey-text(ng-controller='controllerDaftarLencana',style='width:100%;')
+    .item(ng-repeat='lencana in daftarLencana')
+      .ui.grid
+        .four.wide.column(align='center')
+          img.ui.tiny.image(src='{{lencana.lokasi_gambar_lencana}}')
+        .twelve.wide.column
+          | {{lencana.keterangan}}
+          br
+          br
+          .ui.big.label 1 dari 3 tercapai.
+
 
 
 block right-middle

@@ -1,5 +1,8 @@
 var angularModule = angular.module('vidyanusaApp',[])
-const Global = require('../global.json');
+const Global = {
+  "api_global" : "http://apigeneraldev.vidyanusa.id",
+  "api_portal" : "http://apiportaldev.vidyanusa.id"
+};
 
 angularModule.controller('controllerDaftar', function($scope){
   $scope.default = "true"
@@ -29,7 +32,7 @@ angularModule.controller('controllerDaftar', function($scope){
 angularModule.controller('controllerAmbilDaftarSekolah', function($scope, $http){
       $http({
         method: 'POST',
-        url: Global.devel_api_global+'/daftar_sekolah'
+        url: Global.api_global+'/daftar_sekolah'
       }).then(function successCallback(response) {
           // this callback will be called asynchronously
           // when the response is available
@@ -45,7 +48,7 @@ angularModule.controller('controllerAmbilDaftarSekolah', function($scope, $http)
 angularModule.controller('controllerDaftarSekolah', function ($scope, $http) {
   $http({
         method: 'GET',
-        url: Global.devel_api_global+'/daftar_sekolah'
+        url: Global.api_global+'/daftar_sekolah'
       }).then(function successCallback(response) {
           // this callback will be called asynchronously
           // when the response is available

@@ -1,17 +1,17 @@
-const copyright = "© 2017 Vidyanusa Institut Teknologi Bandung"
+const copyright = "© 2018 Vidyanusa Institut Teknologi Bandung"
 const Global = require('../global.json');
 
 //Import untuk REST API
 var restClient = require('node-rest-client').Client;
-//var rClient = new restClient();
-var rClient = new restClient({
- proxy:{
-           host:Global.proxy_host,
-           port: Global.proxy_port,
-           user:Global.proxy_user,
-           password:Global.proxy_password
-       }
-});
+var rClient = new restClient();
+// var rClient = new restClient({
+//  proxy:{
+//            host:Global.proxy_host,
+//            port: Global.proxy_port,
+//            user:Global.proxy_user,
+//            password:Global.proxy_password
+//        }
+// });
 
 //Pengaturan FTP
 var Client = require('ftp')
@@ -22,7 +22,8 @@ var FTPStorage = require('multer-ftp')
 var FTP = require('ftp')
 var fs = require('fs')
 
-var base_api_general_url = 'http://apigeneral.vidyanusa.id';
+var base_api_general_url = Global.api_global;
+var base_api_portal_url = Global.api_portal;
 
 var connectionProperties = {
     host: Global.ftp_host,
@@ -87,6 +88,61 @@ exports.kelas_detail = function(req, res){
 
     }
 
+}
+
+exports.kelas_detail_penilaian_sikap = function(req, res){
+
+    var session = req.session
+
+    //Mencek apakah pengguna masuk sebagai sebagai guru
+    if(session.peran == null || session.peran != 4){//Bukan sebagai guru
+        return res.redirect('/')//Di arahkan ke route index
+    }else{//Sebagai guru
+
+      var idKelas = req.params.id
+      //Cek apakah kelas yang dituju terdaftar di db
+      args = {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        data: {
+                access_token: session.token,
+                id_kelas: idKelas
+        },
+      };
+
+      rClient.post(base_api_general_url+'/daftar_kelas/detail', args, function (data, response) {
+
+          if(data.success == true){
+
+            if(data.data.length > 0){//Kelas ditemukan
+
+              return res.render('member/guru/kelas_detail_unggahan_siswa',{title : 'Detail Penilaian Sikap Siswa di kelas', username: session.username, access_token:session.token, user_id: session.id_pengguna, id_kelas: idKelas})
+
+            }else{//Kelas tidak ditemukan
+              req.flash('pesan', 'Kelas yang anda tuju tidak terdaftar dalam database.');
+              return res.redirect('/member/guru/kelas')
+            }
+
+          }else{
+            req.flash('pesan', 'Kelas yang anda tuju tidak ditemukan');
+            return res.redirect('/member/guru/kelas')
+          }
+       })
+
+
+
+    }
+
+}
+
+exports.siswa_detail_unggahan = function(req, res){
+    var session = req.session
+    //Mencek apakah pengguna masuk sebagai sebagai guru
+    if(session.peran == null || session.peran != 4){//Bukan sebagai guru
+        return res.redirect('/')//Di arahkan ke route index
+    }else{//Sebagai guru
+      var pengguna = req.params.id
+      return res.render('member/guru/kelas_detail_unggahan_siswa',{title : 'Detail Unggahan Siswa', username: session.username, access_token:session.token, user_id: session.id_pengguna, id_siswa: pengguna})
+    }
 }
 
 exports.daftar_kelas = function(req, res){

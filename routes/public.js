@@ -5,6 +5,7 @@ require('express-group-routes');
 var index_controller = require('../controllers/indexController');
 
 router.get('/', index_controller.index);
+router.get('/log', index_controller.index);
 
 router.get('/masuk', index_controller.masuk_form);
 

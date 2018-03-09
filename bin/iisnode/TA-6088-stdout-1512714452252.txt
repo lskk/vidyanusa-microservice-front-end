@@ -1,2 +1,0 @@
-[0mGET /member/{{foto}} [36m302 [0m465.162 ms - 23[0m
-[0mGET /member/{{komentarr.pengguna.profil.foto}} [36m302 [0m279.939 ms - 23[0m

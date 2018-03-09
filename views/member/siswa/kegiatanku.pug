@@ -13,19 +13,22 @@ block navigasi
 
 
   .right.menu
-    a(class='item grey-text',href='#')
-      i.alarm.outline.icon.medium.grey-text
-    a.item.ui.dropdown
+    a(class='item grey-text',href='/member/gamifikasi/pencapaian')
+      i.trophy.icon.grey-text
       .text.grey-text
-        | #{username}
-      i.dropdown.icon
-      .menu
-        .item.nav-pengaturan
-          i.setting.icon.grey-text
-          span.grey-text Pengaturan
-        .item.nav-keluar
-          i.sign.out.icon.grey-text
-          span.grey-text Keluar
+        | Pencapaian
+    a.item.ui.dropdown
+        i.user.icon.grey-text
+        .text.grey-text
+          | #{username}
+        i.dropdown.icon
+        .menu
+          .item.nav-pengaturan
+            i.setting.icon.grey-text
+            span.grey-text Pengaturan
+          .item.nav-keluar
+            i.sign.out.icon.grey-text
+            span.grey-text Keluar
 
 block main-middle
   if (messages.pesan)
@@ -33,9 +36,15 @@ block main-middle
       .ui.green.message
         span= messages.pesan
   .ui.segment.grey-text(align='center') Kegiatanku
+
+  .ui.segment.grey-text
+    .sixteen.wide.column
+      form.ui.form
+        .field
+          input(type='text',placeholder='Tulis pencarian berdasarkan judul dan kategori kegiatan',ng-model='pencarian',style='width:100%;')
   br
-  .ui.grid(ng-controller='controllerKegiatanku')
-    span(ng-repeat="activity in activities | orderBy : '-activity.created_at'")
+  .ui.grid(ng-controller='controllerKegiatanku',ng-init='limit=3')
+    span(ng-repeat="activity in activities | orderBy : '-activity.created_at'| filter:pencarian| limitTo: limit as results")
       .eight.wide.column
         .ui.segment.grey-text
           img.ui.large.image(src='{{activity.file_berkas}}')
@@ -47,18 +56,25 @@ block main-middle
           br
           span {{activity.created_at}}
           br
+          span(ng-if = 'activity.status == 0')
+            .ui.medium.red.label Belum diterima oleh Guru.
+          span(ng-if = 'activity.status == 1')
+            .ui.medium.green.label Foto ini telah diterima oleh Guru.
+          br
           br
           a(href='/member/siswa/kegiatanku/hapus/{{activity.id}}/{{activity.pengguna}}', style='color:red')
             i.trash.outline.icon
             | Hapus kegiatan ini
 
       br
-
+    .ui.grid
+      .sixteen.wide.column
+        button(ng-hide='results.length === timelines.length',ng-click='limit=limit+3',style='width:100%;background: linear-gradient(141deg, #2ecc71 10%, #27ae60 51%, #27ae60 75%);color:#FFFFFF;',class='large ui button button-submit') Lihat lebih banyak lagi
 block right-middle
   .ui.card
     #hidden-username(style='display:none') #{username}
     #hidden-access-token(style='display:none') #{access_token}
-    #hidden-user-id(style='display:none') #{user_id}
+    #hidden-pengguna(style='display:none') #{user_id}
 
     .image
       img(src='{{foto}}')
@@ -68,8 +84,29 @@ block right-middle
         span.date {{nama_lengkap}}
       .description
         | {{bio}}
+      .meta(ng-controller= "controllerPoinPerPengguna")
+        a.grey-text(href='#')
+          i.star.icon(style='color:orange')
+          | {{poinPengguna}} Poin
 
     .extra.content
       a(href='/member/siswa/pengaturan')
         i.setting.icon
         | Pengaturan
+  .ui.segment
+    a.grey-text(href='#')
+      i.trophy.icon(style='color:gold')
+      | Leaderboard
+    .ui.middle.aligned.divided.list.grey-text
+      .item(style='padding:1em;')
+        .content(ng-controller="controllerLeaderboard")
+          .ui.grid(ng-repeat = "leaderboard in leaderboards | orderBy: 'poin':true | limitTo:10 ")
+            .six.wide.column
+              | # {{$index + 1}}
+              img.ui.mini.image(src='{{leaderboard.foto}}',style="float:right;")
+            .ten.wide.column
+              span
+                a(href='http://portofolio.vidyanusa.id/{{leaderboard.username}}',target='_blank') {{leaderboard.username}}
+                br
+                i.star.icon(style='color:orange')
+                |{{leaderboard.poin}} poin

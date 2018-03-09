@@ -1,1 +1,0 @@
-[0mGET /images/shortcut-icon.png [32m200 [0m226.224 ms - 10184[0m

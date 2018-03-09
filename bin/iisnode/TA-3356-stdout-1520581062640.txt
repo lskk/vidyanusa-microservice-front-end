@@ -1,0 +1,6 @@
+[0mGET /dashboard [36m302 [0m288.809 ms - 39[0m
+[0mGET /dashboard [36m302 [0m440.053 ms - 39[0m
+[0mGET /dashboard [36m302 [0m443.120 ms - 39[0m
+[0mGET /member/dashboard [32m200 [0m1465.863 ms - 15072[0m
+[0mGET /dashboard [36m302 [0m1684.447 ms - 39[0m
+[0mGET /member/{{leaderboard.foto}} [36m302 [0m1669.064 ms - 23[0m

@@ -1,0 +1,3 @@
+[0mGET /member/{{timeline.file_berkas}} [36m302 [0m1506.225 ms - 23[0m
+[0mGET /member/dashboard [32m200 [0m1523.156 ms - 15072[0m
+[0mGET /member/{{timeline.foto}} [36m302 [0m1709.459 ms - 23[0m

@@ -1,16 +1,16 @@
-const copyright = "© 2017 Vidyanusa Institut Teknologi Bandung"
-
+const copyright = "© 2018 Vidyanusa Institut Teknologi Bandung"
+const Global = require('../global.json');
 //Pengaturan REST API
 var restClient = require('node-rest-client').Client;
-//var rClient = new restClient();
-var rClient = new restClient({
- proxy:{
-   host:Global.proxy_host,
-   port: Global.proxy_port,
-   user:Global.proxy_user,
-   password:Global.proxy_password
-       }
-});
+var rClient = new restClient();
+// var rClient = new restClient({
+//  proxy:{
+//    host:Global.proxy_host,
+//    port: Global.proxy_port,
+//    user:Global.proxy_user,
+//    password:Global.proxy_password
+//        }
+// });
 
 //Import library pengatur prosedur
 var async = require('async')
@@ -31,8 +31,8 @@ var connectionProperties = {
 };
 
 //Variable Global API yang digunakan
-var base_api_portal_url = 'http://apiportal.vidyanusa.id';
-var base_api_general_url = 'http://apigeneral.vidyanusa.id';
+var base_api_portal_url = Global.api_portal;
+var base_api_general_url = Global.api_global;
 
 exports.absensi = function(req, res){
 

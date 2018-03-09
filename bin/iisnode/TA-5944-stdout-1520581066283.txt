@@ -1,0 +1,4 @@
+[0mGET /member/tes [36m302 [0m77.465 ms - 23[0m
+[0mGET /member/{{foto}} [36m302 [0m280.582 ms - 23[0m
+[0mGET /member/dashboard [32m200 [0m1352.621 ms - 15072[0m
+[0mGET /member/dashboard [32m200 [0m512.615 ms - 15072[0m

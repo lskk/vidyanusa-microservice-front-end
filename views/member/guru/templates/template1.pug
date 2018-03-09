@@ -7,9 +7,13 @@ html(lang='en')
     link(rel='stylesheet', href='/stylesheets/custom-grid.css')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js')
+    script(src='/javascripts/tableExport/FileSaver.js')
+    script(src='/javascripts/tableExport/tableexport.js')
     script(src='/javascripts/angular/dashboard.js')
     script(src='/dist/semantic.min.js')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/angular-moment/1.2.0/angular-moment.min.js')
+
   body(ng-app='dashboardApp',ng-controller='controllerGetProfile')
     section.ui.container
       nav.ui.secondary.pointing.menu

@@ -1,0 +1,6 @@
+[0mGET /member/dashboard [32m200 [0m1199.502 ms - 15072[0m
+[0mGET /member/dashboard [32m200 [0m2047.138 ms - 15072[0m
+[0mGET /member/dashboard [32m200 [0m2378.033 ms - 15072[0m
+[0mGET /member/dashboard [32m200 [0m1743.373 ms - 15072[0m
+[0mGET /dashboard [36m302 [0m2554.679 ms - 39[0m
+[0mGET /member/dashboard [32m200 [0m2550.013 ms - 15072[0m

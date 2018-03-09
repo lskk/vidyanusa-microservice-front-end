@@ -8,6 +8,7 @@ var member_controller = require('../controllers/memberController');
 var sekolah_controller = require('../controllers/sekolahController');
 var guru_controller = require('../controllers/guruController');
 var siswa_controller = require('../controllers/siswaController');
+var gamifikasi_controller = require('../controllers/gamifikasiController');
 
 var formidable = require('formidable')
 const fs = require('fs')
@@ -19,6 +20,17 @@ router.get('/dashboard', member_controller.dashboard);
 
 router.group("/guru", (router) => {
     router.get("/kelas/", guru_controller.kelas);
+		router.get("/kelas/:id", guru_controller.kelas_detail);
+		router.get("/kelas/penilaian_sikap/:id", guru_controller.kelas_detail_penilaian_sikap);
+		router.get("/kelas/siswa_detail_unggahan/:id", guru_controller.siswa_detail_unggahan);
+    router.get("/kelas/daftar", guru_controller.daftar_kelas);
+		router.get("/pengaturan", guru_controller.pengaturan);
+		router.post("/pengaturan/profil/ubah", guru_controller.pengaturan_profil_ubah);
+		router.post("/pengaturan/foto_profil/ubah", multer({ dest: './uploads/'}).single('foto'), guru_controller.pengaturan_foto_profil_ubah);
+});
+
+router.group("/gamifikasi", (router) => {
+    router.get("/pencapaian/", gamifikasi_controller.pencapaian);
 		router.get("/kelas/:id", guru_controller.kelas_detail);
     router.get("/kelas/daftar", guru_controller.daftar_kelas);
 		router.get("/pengaturan", guru_controller.pengaturan);

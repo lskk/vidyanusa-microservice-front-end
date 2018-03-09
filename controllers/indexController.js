@@ -1,25 +1,25 @@
-const copyright = "© 2017 Vidyanusa Institut Teknologi Bandung"
-
+const copyright = "© 2018 Vidyanusa Institut Teknologi Bandung"
+const Global = require('../global.json');
 //Untuk mengirim email
 var nodemailer = require('nodemailer')
 
 //Import untuk REST API
 var restClient = require('node-rest-client').Client;
-//var rClient = new restClient();
-var rClient = new restClient({
- proxy:{
-   host:Global.proxy_host,
-   port: Global.proxy_port,
-   user:Global.proxy_user,
-   password:Global.proxy_password
-       }
-});
+var rClient = new restClient();
+// var rClient = new restClient({
+//  proxy:{
+//    host:Global.proxy_host,
+//    port: Global.proxy_port,
+//    user:Global.proxy_user,
+//    password:Global.proxy_password
+//        }
+// });
 
 
 var async = require('async')
 //var base_api_url = 'http://api.vidyanusa.id';
-var base_api_url = 'http://127.0.0.1:3500';
-var base_api_general_url = 'http://apigeneral.vidyanusa.id';
+
+var base_api_general_url = Global.api_global;
 
 exports.index = function(req, res) {
     return res.render('index', { title: 'Selamat datang', copyright: copyright, link: req.query.link, last: req.query.last });
